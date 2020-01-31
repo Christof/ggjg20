@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import input from './input.js';
-import _bunny from '../assets/bunnys.png';
+import _planet from '../assets/planet.png';
 import _player from '../assets/player.png';
 
 const newStyle = document.createElement('style');
@@ -28,11 +28,10 @@ document.body.appendChild(app.view);
 // load the texture we need
 app.loader
   .add('player', 'assets/player.png')
-  .add('bunny', 'assets/bunnys.png')
+  .add('planet', 'assets/planet.png')
   .load((loader, resources) => {
-    // This creates a texture from a 'bunny.png' image
-    const bunny = new PIXI.Sprite(resources.bunny.texture);
     const player = new PIXI.Sprite(resources.player.texture);
+    const planet = new PIXI.Sprite(resources.planet.texture);
 
     player.x = 0.5 * app.renderer.width;
     player.y = 0.3 * app.renderer.height;
@@ -41,15 +40,15 @@ app.loader
     // player.anchor.y = 0.5;
 
     // Setup the position of the bunny
-    bunny.x = app.renderer.width / 2;
-    bunny.y = app.renderer.height / 2;
+    planet.x = app.renderer.width / 2;
+    planet.y = app.renderer.height / 2;
 
     // Rotate around the center
-    bunny.anchor.x = 0.5;
-    bunny.anchor.y = 0.5;
+    planet.anchor.x = 0.5;
+    planet.anchor.y = 0.5;
 
     // Add the bunny to the scene we are building
-    app.stage.addChild(bunny);
+    app.stage.addChild(planet);
     app.stage.addChild(player);
 
     // Listen for frame updates
@@ -61,10 +60,10 @@ app.loader
       }
       console.log(horizontal, vertical);
       if (horizontal < 0) {
-        bunny.x += 0.5;
+        planet.x += 0.5;
       } else {
-        bunny.x -= 0.5;
+        planet.x -= 0.5;
       }
-      bunny.rotation += 0.01;
+      planet.rotation += 0.01;
     });
   });
