@@ -35,11 +35,15 @@ app.loader
     const player = new PIXI.Sprite(resources.player.texture);
     const planet = new PIXI.Sprite(resources.planet.texture);
 
-    player.x = 0.5 * app.renderer.width;
-    player.y = 0.3 * app.renderer.height;
+    const centerX = 0.5 * app.renderer.width;
+    const centerY = 0.5 * app.renderer.height;
+    const radius = 80;
+    let angle = 0;
+    player.x = centerX;
+    player.y = centerY - radius;
 
-    // player.anchor.x = 0.5;
-    // player.anchor.y = 0.5;
+    player.anchor.x = 0.5;
+    player.anchor.y = 1.0;
 
     // Setup the position of the bunny
     planet.x = app.renderer.width / 2;
