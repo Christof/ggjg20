@@ -43,7 +43,7 @@ app.loader
     player.y = centerY - radius;
 
     player.anchor.x = 0.5;
-    player.anchor.y = 1.0;
+    player.anchor.y = 0.5;
 
     // Setup the position of the bunny
     planet.x = app.renderer.width / 2;
@@ -60,16 +60,21 @@ app.loader
     // Listen for frame updates
     app.ticker.add(() => {
       // each frame we spin the bunny around a bit
-      let horizontal, vertical;
+      let horizontal = 0;
+      let vertical = 0;
       if (input.gamepad_connected) {
         [horizontal, vertical] = input.getGamepadJoystick();
       }
       console.log(horizontal, vertical);
       if (horizontal < 0) {
         planet.x += 0.5;
-      } else {
+      } else if (horizontal > 0) {
         planet.x -= 0.5;
       }
       planet.rotation += 0.01;
+      angle += 0.01;
+      player.x = centerX + radius * Math.cos(angle);
+      player.y = centerY - radius * Math.sin(angle);
+      player.rotation = (angle / 360) * 2 * Math.PI;
     });
   });
