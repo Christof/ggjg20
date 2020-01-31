@@ -17,6 +17,8 @@ app.renderer.view.style.display = 'block';
 app.renderer.resize(window.innerWidth, window.innerHeight);
 app.renderer.backgroundColor = 0xffffff;
 
+PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+
 window.addEventListener('resize', function(event) {
   app.renderer.resize(window.innerWidth, window.innerHeight);
 });
