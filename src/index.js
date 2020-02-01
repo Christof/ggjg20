@@ -43,7 +43,7 @@ app.loader
 
     const centerX = 0.25 * app.renderer.width;
     const centerY = 0.25 * app.renderer.height;
-    const radius = 80;
+    const radius = 84;
     let angle = 0;
     player.x = centerX;
     player.y = centerY - radius;
@@ -86,7 +86,8 @@ app.loader
       }
       player.x = centerX + radius * Math.cos(angle);
       player.y = centerY - radius * Math.sin(angle);
-      // player.rotation = (angle / 360) * 2 * Math.PI;
+
+      player.rotation = -angle - 0.5 * Math.PI;
 
       targetMarker.x = centerX + radius * Math.cos(targetAngle);
       targetMarker.y = centerY - radius * Math.sin(targetAngle);
