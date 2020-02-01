@@ -114,10 +114,10 @@ app.loader
 
 function updateTargetAngleFromKeyboard(angle) {
   if (
-    !input.isDown('w') &&
-    !input.isDown('s') &&
-    !input.isDown('a') &&
-    !input.isDown('d')
+    !input.moveUp() &&
+    !input.moveDown() &&
+    !input.moveLeft() &&
+    !input.moveRight()
   )
     return angle;
 
@@ -125,10 +125,10 @@ function updateTargetAngleFromKeyboard(angle) {
   let x = Math.cos(angle);
   let y = Math.sin(angle);
 
-  if (input.isDown('w')) y += speed;
-  if (input.isDown('s')) y -= speed;
-  if (input.isDown('a')) x -= speed;
-  if (input.isDown('d')) x += speed;
+  if (input.moveUp()) y += speed;
+  if (input.moveDown()) y -= speed;
+  if (input.moveLeft()) x -= speed;
+  if (input.moveRight()) x += speed;
 
   return Math.atan2(y, x);
 }
