@@ -13,8 +13,7 @@ const Input = {
   isDown(key) {
     if (this.current.keys[key]) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   },
@@ -29,45 +28,52 @@ const Input = {
     );
   },
   moveLeft() {
-    if (this.isDown("ArrowLeft") || this.isDown("a")) {
+    if (this.isDown('ArrowLeft') || this.isDown('a')) {
       return true;
     }
   },
   moveRight() {
-    if (this.isDown("ArrowRight") || this.isDown("d")) {
+    if (this.isDown('ArrowRight') || this.isDown('d')) {
       return true;
     }
   },
   moveUp() {
-    if (this.isDown("ArrowUp") || this.isDown("w")) {
+    if (this.isDown('ArrowUp') || this.isDown('w')) {
       return true;
     }
   },
   moveDown() {
-    if (this.isDown("ArrowDown") || this.isDown("s")) {
+    if (this.isDown('ArrowDown') || this.isDown('s')) {
       return true;
     }
   },
-  hasAnyInput() {
-    return this.current.key != null || this.hasGamepadMovementAboveThreshold();
+  hasKeyboardMovementInput() {
+    return (
+      this.moveUp() || this.moveDown() || this.moveLeft() || this.moveRight()
+    );
+  },
+  hasAnyMovementInput() {
+    return (
+      this.hasKeyboardMovementInput() || this.hasGamepadMovementAboveThreshold()
+    );
   }
 };
 
-window.addEventListener("gamepadconnected", ev => {
+window.addEventListener('gamepadconnected', ev => {
   Input.gamepad_index = ev.gamepad.index;
   Input.gamepad_connected = true;
 });
 
-window.addEventListener("gamepaddisconnected", ev => {
+window.addEventListener('gamepaddisconnected', ev => {
   Input.gamepad_index = null;
   Input.gamepad_connected = false;
 });
 
-window.onkeydown = (ev) => {
+window.onkeydown = ev => {
   Input.current.keys[ev.key] = true;
 };
 
-window.onkeyup = (ev) => {
+window.onkeyup = ev => {
   Input.current.keys[ev.key] = false;
 };
 

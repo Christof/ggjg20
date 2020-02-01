@@ -99,7 +99,7 @@ app.loader
 
       player.rotation = -angle + 0.5 * Math.PI;
 
-      if (input.hasAnyInput() || needsMovement) {
+      if (input.hasAnyMovementInput() || needsMovement) {
         player.play();
       } else {
         player.gotoAndStop(1);
@@ -113,13 +113,7 @@ app.loader
   });
 
 function updateTargetAngleFromKeyboard(angle) {
-  if (
-    !input.moveUp() &&
-    !input.moveDown() &&
-    !input.moveLeft() &&
-    !input.moveRight()
-  )
-    return angle;
+  if (!input.hasKeyboardMovementInput()) return angle;
 
   const speed = 0.01;
   let x = Math.cos(angle);
