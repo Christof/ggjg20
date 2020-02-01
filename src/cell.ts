@@ -5,6 +5,7 @@ import { BurningTree } from './burning_tree';
 export class Cell {
   private hasTree = false;
   private isBurning = false;
+  private burningTree: BurningTree;
 
   public container: Container;
 
@@ -29,16 +30,17 @@ export class Cell {
     if (Math.random() > 0.999) {
       this.isBurning = true;
 
-      const burningTree = new BurningTree(
+      this.burningTree = new BurningTree(
         this.container.getChildAt(0).transform
       );
       this.container.removeChildren();
-      this.container.addChild(burningTree.sprite);
+      this.container.addChild(this.burningTree.sprite);
     }
 
     if (this.isBurning && Math.random() > 0.999) {
       this.isBurning = false;
       this.hasTree = false;
+      this.burningTree?.cleanup();
       this.container.removeChildren();
     }
   }

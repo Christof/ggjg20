@@ -15,27 +15,33 @@ step1.on('end', startStepLoop);
 step2.on('end', startStepLoop);
 
 export class Fire {
-  firestart_id = 0;
-  fireloop_id = 0;
+  firestart_id: number = undefined;
+  fireloop_id: number = undefined;
+  stopped = false;
 
   start() {
     this.firestart_id = firestart.play();
-    this.fireloop_id = fireloop.play();
-    fireloop.pause(this.fireloop_id);
     firestart.on(
       'end',
       () => {
-        fireloop.play();
+        if (!this.stopped) this.fireloop_id = fireloop.play();
       },
       this.firestart_id
     );
   }
 
   stop() {
-    fireloop.on('end', () => {
-      firestop.play();
-      fireloop.pause(this.fireloop_id);
-    });
+    this.stopped = true;
+    if (this.fireloop_id === undefined) return;
+
+    fireloop.on(
+      'end',
+      () => {
+        firestop.play();
+        fireloop.pause(this.fireloop_id);
+      },
+      this.fireloop_id
+    );
   }
 }
 

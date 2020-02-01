@@ -1,8 +1,10 @@
 import { BaseTexture, Spritesheet, AnimatedSprite, Transform } from 'pixi.js';
 import treeJSON from '../assets/TreeBurn.json';
+import { Fire } from './audio';
 
 export class BurningTree {
   private static spritesheet: Spritesheet;
+  private fireSound = new Fire();
   public sprite: AnimatedSprite;
 
   constructor(transform: Transform) {
@@ -21,5 +23,10 @@ export class BurningTree {
     this.sprite.transform = transform;
     this.sprite.animationSpeed = 0.1;
     this.sprite.play();
+    this.fireSound.start();
+  }
+
+  cleanup() {
+    this.fireSound.stop();
   }
 }
