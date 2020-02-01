@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 import input from './input.js';
 import planetPath from '../assets/planet.png';
 import playerPath from '../assets/player.png';
+import alexPNGPath from "../assets/alex.png";
 
 const newStyle = document.createElement('style');
 const style = '* {padding: 0; margin: 0}';
@@ -34,10 +35,16 @@ let targetAngle = 0.5 * Math.PI;
 app.loader
   .add('player', playerPath)
   .add('planet', planetPath)
+  .add('test', "./assets/alex.json")
   .load((loader, resources) => {
     const player = new PIXI.Sprite(resources.player.texture);
     const planet = new PIXI.Sprite(resources.planet.texture);
     const targetMarker = new PIXI.Sprite(resources.player.texture);
+
+    const test = new PIXI.AnimatedSprite(resources.test.spritesheet.animations["Alex"]);
+    test.x = 10;
+    test.y = 150;
+    test.scale.set(5, 5);
     targetMarker.scale.x = 0.5;
     targetMarker.scale.y = 0.5;
 
@@ -61,10 +68,14 @@ app.loader
     angles.y = 10;
 
     // Add the bunny to the scene we are building
+    app.stage.addChild(test);
     app.stage.addChild(planet);
     app.stage.addChild(player);
     app.stage.addChild(targetMarker);
     app.stage.addChild(angles);
+
+    test.animationSpeed = 0.1;
+    test.play();
 
     // Listen for frame updates
     app.ticker.add(delta => {

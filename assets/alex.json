@@ -1,0 +1,47 @@
+{"frames": {
+
+"Alex_1.png":
+{
+	"frame": {"x":0,"y":0,"w":8,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":8},
+	"sourceSize": {"w":8,"h":8}
+},
+"Alex_2.png":
+{
+	"frame": {"x":8,"y":0,"w":8,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":8},
+	"sourceSize": {"w":8,"h":8}
+},
+"Alex_3.png":
+{
+	"frame": {"x":16,"y":0,"w":8,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":8},
+	"sourceSize": {"w":8,"h":8}
+},
+"Alex_4.png":
+{
+	"frame": {"x":24,"y":0,"w":8,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":8},
+	"sourceSize": {"w":8,"h":8}
+}},
+"animations": {
+	"Alex": ["Alex_1.png","Alex_2.png","Alex_3.png","Alex_4.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "alex.png",
+	"format": "RGBA8888",
+	"size": {"w":32,"h":8},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:790d28e00abb4fda80bf651f51bf9fca:20a1450dadf1737cba789fa7697af190:8569c2b34f0ca692153f5c37a279b9b7$"
+}
+}

@@ -1,5 +1,6 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
@@ -18,12 +19,16 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({ title: "little planet", template: "index.html" }),
+    new webpack.IgnorePlugin({
+      resourceRegExp: /.json/
+    }),
+    new CopyPlugin([{ from: "./assets", to: "./assets" }]),
     new CopyPlugin([{ from: "./src/pixi.js", to: "pixi.js" }])
   ],
   module: {
     rules: [
       {
-        test: /\.png/,
+        test: /\.(png|json)/,
         loader: "file-loader",
         options: {
           name: "[path]/[name].[ext]"
