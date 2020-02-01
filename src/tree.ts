@@ -1,4 +1,5 @@
 import { IPoint, Sprite, Texture } from 'pixi.js';
+import { posFromCylinderCoord, rotationToCenter } from './math';
 
 export class Tree {
   private radius = 85;
@@ -7,7 +8,8 @@ export class Tree {
   constructor(center: IPoint, angle: number, treeTexture: Texture) {
     this.sprite = new Sprite(treeTexture);
 
-    this.sprite.x = center.x + this.radius * Math.cos(angle);
-    this.sprite.y = center.y - this.radius * Math.sin(angle);
+    this.sprite.anchor.set(0.5);
+    this.sprite.position = posFromCylinderCoord(center, this.radius, angle);
+    this.sprite.rotation = rotationToCenter(angle);
   }
 }
