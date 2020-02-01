@@ -3,13 +3,17 @@ import { TargetMarker } from './target_marker';
 import { Player } from './player';
 import { Input } from './input';
 import { Tree } from './tree';
+import { Cell } from './cell';
+import { range } from 'lodash';
+
+const cellCount = 16;
 
 export class Game {
   private planet: Sprite;
   private targetMarker: TargetMarker;
   private player: Player;
 
-  private trees: Tree[] = [];
+  private cells: Cell[];
 
   private targetAngle = 0.5 * Math.PI;
 
@@ -32,6 +36,18 @@ export class Game {
     this.container.addChild(this.planet);
     this.container.addChild(this.player.sprite);
     this.container.addChild(this.targetMarker.sprite);
+
+    this.cells = range(cellCount).map(() => new Cell(center, resources));
+    for (const cell of this.cells) {
+      this.container.addChild(cell.container);
+    }
+  }
+
+  private cellForAngle(angle: number) {
+    const usedAngle = angle < 0 ? angle + 2 * Math.PI : angle;
+    const index = Math.floor((usedAngle / (2 * Math.PI)) * cellCount);
+
+    return this.cells[index];
   }
 
   update() {
@@ -42,13 +58,7 @@ export class Game {
     this.targetMarker.update(this.targetAngle);
 
     if (Input.isDown('e')) {
-      const tree = new Tree(
-        this.center,
-        this.player.angle,
-        this.resources.tree.texture
-      );
-      this.trees.push(tree);
-      this.container.addChild(tree.sprite);
+      this.cellForAngle(this.player.angle).plant(this.player.angle);
     }
   }
 }

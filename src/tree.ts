@@ -2,7 +2,7 @@ import { IPoint, Sprite, Texture } from 'pixi.js';
 import { posFromCylinderCoord, rotationToCenter } from './math';
 
 export class Tree {
-  private radius = 85;
+  private radius = 88;
   public sprite: Sprite;
 
   constructor(center: IPoint, angle: number, treeTexture: Texture) {
