@@ -17,7 +17,7 @@ app.stage.scale.set(2, 2);
 app.renderer.view.style.position = 'absolute';
 app.renderer.view.style.display = 'block';
 app.renderer.resize(window.innerWidth, window.innerHeight);
-app.renderer.backgroundColor = 0xffffff;
+app.renderer.backgroundColor = 0x0;
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
@@ -62,7 +62,7 @@ app.loader
     planet.x = centerX;
     planet.y = centerY;
 
-    const angles = new PIXI.Text('Basic text in pixi');
+    const angles = new PIXI.Text('', { fill: 0xffffff, fontSize: 10 });
     angles.x = 10;
     angles.y = 10;
 
