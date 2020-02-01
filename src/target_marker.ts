@@ -1,4 +1,5 @@
 import { Sprite, IPoint, Texture } from 'pixi.js';
+import { posFromCylinderCoord, rotationToCenter } from './math';
 
 export class TargetMarker {
   private radius = 98;
@@ -10,7 +11,11 @@ export class TargetMarker {
   }
 
   update(targetAngle: number) {
-    this.sprite.x = this.center.x + this.radius * Math.cos(targetAngle);
-    this.sprite.y = this.center.y - this.radius * Math.sin(targetAngle);
+    this.sprite.position = posFromCylinderCoord(
+      this.center,
+      this.radius,
+      targetAngle
+    );
+    this.sprite.rotation = rotationToCenter(targetAngle);
   }
 }
