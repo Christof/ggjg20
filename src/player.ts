@@ -1,10 +1,12 @@
-import { AnimatedSprite, IPoint, BaseTexture, Spritesheet } from 'pixi.js';
-import { Input } from './input';
-import alexJSON from '../assets/alex.json';
+import { AnimatedSprite, IPoint, BaseTexture, Spritesheet } from "pixi.js";
+import { Input } from "./input";
+import alexJSON from "../assets/alex.json";
+import { startStepLoop, stopStepLoop } from "./audio";
 
 export class Player {
   private playerScale = 1;
   private radius = 85;
+  private running = false;
 
   private angle = 0.5 * Math.PI;
   public sprite: AnimatedSprite;
@@ -15,7 +17,7 @@ export class Player {
     spritesheet.parse(function() {
       // finished preparing spritesheet textures
     });
-    this.sprite = new AnimatedSprite(spritesheet.animations['Alex']);
+    this.sprite = new AnimatedSprite(spritesheet.animations["Alex"]);
     this.sprite.scale.set(this.playerScale);
 
     this.sprite.x = center.x;
@@ -46,8 +48,14 @@ export class Player {
     this.sprite.rotation = -this.angle + 0.5 * Math.PI;
 
     if (Input.hasAnyMovementInput() || needsMovement) {
+      if (!this.running) {
+        startStepLoop();
+        this.running = true;
+      }
       this.sprite.play();
     } else {
+      this.running = false;
+      stopStepLoop();
       this.sprite.gotoAndStop(1);
     }
   }
