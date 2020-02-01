@@ -11,7 +11,7 @@ const {
   Text
 } = PIXI;
 import planetPath from '../assets/planet.png';
-import playerPath from '../assets/player.png';
+import crosshairPath from '../assets/crosshair.png';
 
 import alexJSON from '../assets/alex.json';
 import { Player } from './player';
@@ -44,11 +44,11 @@ document.body.appendChild(app.view);
 let targetAngle = 0.5 * Math.PI;
 // load the texture we need
 app.loader
-  .add('player', playerPath)
+  .add('crosshair', crosshairPath)
   .add('planet', planetPath)
   .load((loader: any, resources: any) => {
     const planet = new Sprite(resources.planet.texture);
-    const targetMarker = new Sprite(resources.player.texture);
+    const targetMarker = new Sprite(resources.crosshair.texture);
     const baseTexture = new BaseTexture(alexJSON.meta.image, null);
     const spritesheet = new Spritesheet(baseTexture, alexJSON);
     spritesheet.parse(function() {
@@ -61,8 +61,6 @@ app.loader
       new AnimatedSprite(spritesheet.animations['Alex']),
       center
     );
-    targetMarker.scale.x = 0.25;
-    targetMarker.scale.y = 0.25;
 
     const radius = 88;
 
