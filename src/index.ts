@@ -1,5 +1,14 @@
-import * as PIXI from 'pixi.js';
-import input from './input.js';
+import { Input } from './input';
+import {
+  settings,
+  Application,
+  SCALE_MODES,
+  Sprite,
+  BaseTexture,
+  Spritesheet,
+  AnimatedSprite,
+  Text
+} from 'pixi.js';
 import planetPath from '../assets/planet.png';
 import playerPath from '../assets/player.png';
 
@@ -13,14 +22,14 @@ document.head.appendChild(newStyle);
 // The application will create a renderer using WebGL, if possible,
 // with a fallback to a canvas render. It will also setup the ticker
 // and the root stage PIXI.Container
-const app = new PIXI.Application();
+const app = new Application();
 app.stage.scale.set(2, 2);
 app.renderer.view.style.position = 'absolute';
 app.renderer.view.style.display = 'block';
 app.renderer.resize(window.innerWidth, window.innerHeight);
 app.renderer.backgroundColor = 0x0;
 
-PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+settings.SCALE_MODE = SCALE_MODES.NEAREST;
 
 window.addEventListener('resize', function(event) {
   app.renderer.resize(window.innerWidth, window.innerHeight);
@@ -35,15 +44,15 @@ let targetAngle = 0.5 * Math.PI;
 app.loader
   .add('player', playerPath)
   .add('planet', planetPath)
-  .load((loader, resources) => {
-    const planet = new PIXI.Sprite(resources.planet.texture);
-    const targetMarker = new PIXI.Sprite(resources.player.texture);
-    const baseTexture = new PIXI.BaseTexture(alexJSON.meta.image, null, 1);
-    const spritesheet = new PIXI.Spritesheet(baseTexture, alexJSON);
-    spritesheet.parse(function(textures) {
+  .load((loader: any, resources: any) => {
+    const planet = new Sprite(resources.planet.texture);
+    const targetMarker = new Sprite(resources.player.texture);
+    const baseTexture = new BaseTexture(alexJSON.meta.image, null);
+    const spritesheet = new Spritesheet(baseTexture, alexJSON);
+    spritesheet.parse(function() {
       // finished preparing spritesheet textures
     });
-    const player = new PIXI.AnimatedSprite(spritesheet.animations['Alex']);
+    const player = new AnimatedSprite(spritesheet.animations['Alex']);
     const playerScale = 2;
     player.scale.set(playerScale);
     targetMarker.scale.x = 0.5;
@@ -64,7 +73,7 @@ app.loader
     planet.x = centerX;
     planet.y = centerY;
 
-    const angles = new PIXI.Text('', { fill: 0xffffff, fontSize: 10 });
+    const angles = new Text('', { fill: 0xffffff, fontSize: 10 });
     angles.x = 10;
     angles.y = 10;
 
@@ -99,7 +108,7 @@ app.loader
 
       player.rotation = -angle + 0.5 * Math.PI;
 
-      if (input.hasAnyMovementInput() || needsMovement) {
+      if (Input.hasAnyMovementInput() || needsMovement) {
         player.play();
       } else {
         player.gotoAndStop(1);
@@ -112,30 +121,30 @@ app.loader
     });
   });
 
-function updateTargetAngleFromKeyboard(angle) {
-  if (!input.hasKeyboardMovementInput()) return angle;
+function updateTargetAngleFromKeyboard(angle: number) {
+  if (!Input.hasKeyboardMovementInput()) return angle;
 
   const speed = 0.01;
   let x = Math.cos(angle);
   let y = Math.sin(angle);
 
-  if (input.moveUp()) y += speed;
-  if (input.moveDown()) y -= speed;
-  if (input.moveLeft()) x -= speed;
-  if (input.moveRight()) x += speed;
+  if (Input.moveUp()) y += speed;
+  if (Input.moveDown()) y -= speed;
+  if (Input.moveLeft()) x -= speed;
+  if (Input.moveRight()) x += speed;
 
   return Math.atan2(y, x);
 }
 
-function updateTargetAngleFromJoystick(angle) {
-  if (!input.gamepad_connected || !input.hasGamepadMovementAboveThreshold())
+function updateTargetAngleFromJoystick(angle: number) {
+  if (!Input.gamepad_connected || !Input.hasGamepadMovementAboveThreshold())
     return angle;
 
-  const [horizontal, vertical] = input.getGamepadJoystick();
+  const [horizontal, vertical] = Input.getGamepadJoystick();
   return Math.atan2(-vertical, horizontal);
 }
 
-function normalizeAngle(angle) {
+function normalizeAngle(angle: number) {
   const mod = angle % (2 * Math.PI);
   if (mod < -Math.PI) return mod + 2 * Math.PI;
 

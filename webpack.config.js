@@ -4,14 +4,16 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js'
   },
+  /*
   externals: {
     'pixi.js': 'PIXI'
   },
+  */
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
@@ -19,7 +21,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({ title: 'little planet', template: 'index.html' }),
-    new CopyPlugin([{ from: './src/pixi.js', to: 'pixi.js' }]),
+    // new CopyPlugin([{ from: './src/pixi.js', to: 'pixi.js' }]),
     new CopyPlugin([{ from: './assets/animations', to: './' }])
   ],
   module: {
@@ -39,6 +41,6 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js']
+    extensions: ['.tsx', '.ts', '.js', '.png', '.json']
   }
 };

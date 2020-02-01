@@ -1,8 +1,8 @@
-const Input = {
+export const Input = {
   gamepad_connected: false,
-  gamepad_index: null,
+  gamepad_index: null as number,
   current: {
-    keys: {}
+    keys: {} as { [key: string]: boolean }
   },
   getGamepadJoystick() {
     if (!this.gamepad_connected) {
@@ -10,7 +10,7 @@ const Input = {
       return [gamepad.axes[0], gamepad.axes[1]];
     }
   },
-  isDown(key) {
+  isDown(key: string) {
     if (this.current.keys[key]) {
       return true;
     } else {
@@ -59,7 +59,7 @@ const Input = {
   }
 };
 
-window.addEventListener('gamepadconnected', ev => {
+window.addEventListener('gamepadconnected', (ev: any) => {
   Input.gamepad_index = ev.gamepad.index;
   Input.gamepad_connected = true;
 });
@@ -69,12 +69,10 @@ window.addEventListener('gamepaddisconnected', ev => {
   Input.gamepad_connected = false;
 });
 
-window.onkeydown = ev => {
+window.onkeydown = (ev: any) => {
   Input.current.keys[ev.key] = true;
 };
 
-window.onkeyup = ev => {
+window.onkeyup = (ev: any) => {
   Input.current.keys[ev.key] = false;
 };
-
-module.exports = Input;
