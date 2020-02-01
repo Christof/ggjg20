@@ -44,7 +44,8 @@ app.loader
       // finished preparing spritesheet textures
     });
     const player = new PIXI.AnimatedSprite(spritesheet.animations['Alex']);
-    player.scale.set(2, 2);
+    const playerScale = 2;
+    player.scale.set(playerScale);
     targetMarker.scale.x = 0.5;
     targetMarker.scale.y = 0.5;
 
@@ -77,29 +78,15 @@ app.loader
 
     // Listen for frame updates
     app.ticker.add(delta => {
-      if (input.hasAnyInput()) {
-        player.play();
-      } else {
-        player.gotoAndStop(1);
-      }
-
-      if (input.gamepad_connected) {
-        const [horizontal, vertical] = input.getGamepadJoystick();
-        const movementThreshold = 0.1;
-        if (
-          Math.abs(horizontal) > movementThreshold &&
-          Math.abs(vertical) > movementThreshold
-        ) {
-          targetAngle = Math.atan2(-vertical, horizontal);
-        }
-      }
+      targetAngle = updateTargetAngleFromJoystick(targetAngle);
       targetAngle = updateTargetAngleFromKeyboard(targetAngle);
       // console.log(horizontal, vertical, targetAngle, delta);
 
       const playerSpeed = 0.01; // + delta;
       const diff = (angle - targetAngle) % (2 * Math.PI);
-      if (Math.abs(diff) >= 0.01) {
-        if ((diff < 0 && diff >= -Math.PI) || diff > 2 * Math.PI) {
+      const needsMovement = Math.abs(diff) >= 0.01;
+      if (needsMovement) {
+        if ((diff < 0 && diff >= -Math.PI) || diff > Math.PI) {
           angle += playerSpeed;
         } else {
           angle -= playerSpeed;
@@ -108,8 +95,15 @@ app.loader
       }
       player.x = centerX + radius * Math.cos(angle);
       player.y = centerY - radius * Math.sin(angle);
+      player.scale.x = (Math.sign(diff) || 1) * playerScale;
 
       player.rotation = -angle + 0.5 * Math.PI;
+
+      if (input.hasAnyInput() || needsMovement) {
+        player.play();
+      } else {
+        player.gotoAndStop(1);
+      }
 
       targetMarker.x = centerX + radius * Math.cos(targetAngle);
       targetMarker.y = centerY - radius * Math.sin(targetAngle);
