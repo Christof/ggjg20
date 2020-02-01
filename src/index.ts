@@ -1,19 +1,9 @@
 import { Input } from './input';
 import * as PIXI from 'pixi.js';
-const {
-  settings,
-  Application,
-  SCALE_MODES,
-  Sprite,
-  BaseTexture,
-  Spritesheet,
-  AnimatedSprite,
-  Text
-} = PIXI;
+const { settings, Application, SCALE_MODES, Sprite } = PIXI;
 import planetPath from '../assets/planet.png';
 import crosshairPath from '../assets/crosshair.png';
 
-import alexJSON from '../assets/alex.json';
 import { Player } from './player';
 
 const newStyle = document.createElement('style');
@@ -49,18 +39,10 @@ app.loader
   .load((loader, resources) => {
     const planet = new Sprite(resources.planet.texture);
     const targetMarker = new Sprite(resources.crosshair.texture);
-    const baseTexture = new BaseTexture(alexJSON.meta.image, null);
-    const spritesheet = new Spritesheet(baseTexture, alexJSON);
-    spritesheet.parse(function() {
-      // finished preparing spritesheet textures
-    });
     const centerX = 0.25 * app.renderer.width;
     const centerY = 0.25 * app.renderer.height;
     const center = new PIXI.Point(centerX, centerY);
-    const player = new Player(
-      new AnimatedSprite(spritesheet.animations['Alex']),
-      center
-    );
+    const player = new Player(center);
 
     const radius = 88;
 

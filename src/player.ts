@@ -1,22 +1,30 @@
-import { AnimatedSprite, IPoint } from 'pixi.js';
+import { AnimatedSprite, IPoint, BaseTexture, Spritesheet } from 'pixi.js';
 import { Input } from './input';
+import alexJSON from '../assets/alex.json';
 
 export class Player {
   private playerScale = 1;
   private radius = 85;
 
   private angle = 0.5 * Math.PI;
+  public player: AnimatedSprite;
 
-  constructor(public player: AnimatedSprite, private center: IPoint) {
-    player.scale.set(this.playerScale);
+  constructor(private center: IPoint) {
+    const baseTexture = new BaseTexture(alexJSON.meta.image, null);
+    const spritesheet = new Spritesheet(baseTexture, alexJSON);
+    spritesheet.parse(function() {
+      // finished preparing spritesheet textures
+    });
+    this.player = new AnimatedSprite(spritesheet.animations['Alex']);
+    this.player.scale.set(this.playerScale);
 
-    player.x = center.x;
-    player.y = center.y - this.radius;
+    this.player.x = center.x;
+    this.player.y = center.y - this.radius;
 
-    player.anchor.x = 0.5;
-    player.anchor.y = 0.5;
+    this.player.anchor.x = 0.5;
+    this.player.anchor.y = 0.5;
 
-    player.animationSpeed = 0.1;
+    this.player.animationSpeed = 0.1;
   }
 
   update(targetAngle: number) {
