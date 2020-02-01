@@ -1,5 +1,6 @@
 import { Input } from './input';
-import {
+import * as PIXI from 'pixi.js';
+const {
   settings,
   Application,
   SCALE_MODES,
@@ -8,7 +9,7 @@ import {
   Spritesheet,
   AnimatedSprite,
   Text
-} from 'pixi.js';
+} = PIXI;
 import planetPath from '../assets/planet.png';
 import playerPath from '../assets/player.png';
 

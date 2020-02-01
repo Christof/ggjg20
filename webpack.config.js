@@ -9,11 +9,9 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js'
   },
-  /*
   externals: {
     'pixi.js': 'PIXI'
   },
-  */
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
@@ -21,7 +19,9 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({ title: 'little planet', template: 'index.html' }),
-    // new CopyPlugin([{ from: './src/pixi.js', to: 'pixi.js' }]),
+    new CopyPlugin([
+      { from: './node_modules/pixi.js/dist/pixi.js', to: 'pixi.js' }
+    ]),
     new CopyPlugin([{ from: './assets/animations', to: './' }])
   ],
   module: {
