@@ -78,12 +78,6 @@ app.loader
 
     // Listen for frame updates
     app.ticker.add(delta => {
-      if (input.hasAnyInput()) {
-        player.play();
-      } else {
-        player.gotoAndStop(1);
-      }
-
       if (input.gamepad_connected) {
         const [horizontal, vertical] = input.getGamepadJoystick();
         const movementThreshold = 0.1;
@@ -99,7 +93,8 @@ app.loader
 
       const playerSpeed = 0.01; // + delta;
       const diff = (angle - targetAngle) % (2 * Math.PI);
-      if (Math.abs(diff) >= 0.01) {
+      const needsMovement = Math.abs(diff) >= 0.01;
+      if (needsMovement) {
         if ((diff < 0 && diff >= -Math.PI) || diff > 2 * Math.PI) {
           angle += playerSpeed;
         } else {
@@ -112,6 +107,12 @@ app.loader
       player.scale.x = (Math.sign(diff) || 1) * playerScale;
 
       player.rotation = -angle + 0.5 * Math.PI;
+
+      if (input.hasAnyInput() || needsMovement) {
+        player.play();
+      } else {
+        player.gotoAndStop(1);
+      }
 
       targetMarker.x = centerX + radius * Math.cos(targetAngle);
       targetMarker.y = centerY - radius * Math.sin(targetAngle);
