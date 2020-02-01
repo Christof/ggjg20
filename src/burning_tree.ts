@@ -17,7 +17,9 @@ export class BurningTree {
     this.sprite = new AnimatedSprite(
       BurningTree.spritesheet.animations['TreeBurn']
     );
+    this.sprite.anchor.set(0.5);
     this.sprite.transform = transform;
+    this.sprite.animationSpeed = 0.1;
     this.sprite.play();
   }
 }
