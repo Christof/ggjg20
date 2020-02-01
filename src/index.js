@@ -81,10 +81,11 @@ app.loader
           targetAngle = Math.atan2(-vertical, horizontal);
         }
       }
+      targetAngle = updateTargetAngleFromKeyboard(targetAngle);
       // console.log(horizontal, vertical, targetAngle, delta);
 
       const playerSpeed = 0.01; // + delta;
-      const diff = angle - targetAngle;
+      const diff = (angle - targetAngle) % (2 * Math.PI);
       if (Math.abs(diff) >= 0.01) {
         if ((diff < 0 && diff >= -Math.PI) || diff > 2 * Math.PI) {
           angle += playerSpeed;
@@ -103,6 +104,27 @@ app.loader
       angles.text = `Target: ${targetAngle} Current: ${angle}\nDiff: ${diff}`;
     });
   });
+
+function updateTargetAngleFromKeyboard(angle) {
+  if (
+    !input.isDown('w') &&
+    !input.isDown('s') &&
+    !input.isDown('a') &&
+    !input.isDown('d')
+  )
+    return angle;
+
+  const speed = 0.01;
+  let x = Math.cos(angle);
+  let y = Math.sin(angle);
+
+  if (input.isDown('w')) y += speed;
+  if (input.isDown('s')) y -= speed;
+  if (input.isDown('a')) x -= speed;
+  if (input.isDown('d')) x += speed;
+
+  return Math.atan2(y, x);
+}
 
 function normalizeAngle(angle) {
   const mod = angle % (2 * Math.PI);
