@@ -29,42 +29,22 @@ const Input = {
     );
   },
   moveLeft() {
-    if (this.hasGamepadMovementAboveThreshold()) {
-      if (this.getGamepadJoystick()[0] < 0) {
-        return true;
-      }
-    }
-    if (this.isDown("ArrowLeft")) {
+    if (this.isDown("ArrowLeft") || this.isDown("a")) {
       return true;
     }
   },
   moveRight() {
-    if (this.hasGamepadMovementAboveThreshold()) {
-      if (this.getGamepadJoystick()[0] > 0) {
-        gamepad_movement = true;
-      }
-    }
-    if (this.isDown("ArrowRight")) {
+    if (this.isDown("ArrowRight") || this.isDown("d")) {
       return true;
     }
   },
   moveUp() {
-    if (this.hasGamepadMovementAboveThreshold()) {
-      if (this.getGamepadJoystick()[1] < 0) {
-        return true;
-      }
-    }
-    if (this.isDown("ArrowUp")) {
+    if (this.isDown("ArrowUp") || this.isDown("w")) {
       return true;
     }
   },
   moveDown() {
-    if (this.hasGamepadMovementAboveThreshold()) {
-      if (this.getGamepadJoystick()[0] > 0) {
-        return true;
-      }
-    }
-    if (this.isDown("ArrowDown")) {
+    if (this.isDown("ArrowDown") || this.isDown("s")) {
       return true;
     }
   },
