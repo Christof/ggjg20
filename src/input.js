@@ -24,6 +24,9 @@ const Input = {
       Math.abs(horizontal) > movementThreshold &&
       Math.abs(vertical) > movementThreshold
     );
+  },
+  hasAnyInput() {
+    return this.current.key != null || this.hasGamepadMovementAboveThreshold();
   }
 };
 
