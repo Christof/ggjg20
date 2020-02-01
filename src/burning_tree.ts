@@ -1,16 +1,22 @@
 import { BaseTexture, Spritesheet, AnimatedSprite, Transform } from 'pixi.js';
-import alexJSON from '../assets/alex.json';
+import treeJSON from '../assets/TreeBurn.json';
 
 export class BurningTree {
+  private static spritesheet: Spritesheet;
   public sprite: AnimatedSprite;
 
   constructor(transform: Transform) {
-    const baseTexture = new BaseTexture(alexJSON.meta.image, null);
-    const spritesheet = new Spritesheet(baseTexture, alexJSON);
-    spritesheet.parse(function() {
-      // finished preparing spritesheet textures
-    });
-    this.sprite = new AnimatedSprite(spritesheet.animations['Alex']);
+    if (!BurningTree.spritesheet) {
+      console.log('path', treeJSON.meta.image);
+      const baseTexture = new BaseTexture(treeJSON.meta.image, null);
+      BurningTree.spritesheet = new Spritesheet(baseTexture, treeJSON);
+      BurningTree.spritesheet.parse(function() {
+        // finished preparing spritesheet textures
+      });
+    }
+    this.sprite = new AnimatedSprite(
+      BurningTree.spritesheet.animations['TreeBurn']
+    );
     this.sprite.transform = transform;
     this.sprite.play();
   }

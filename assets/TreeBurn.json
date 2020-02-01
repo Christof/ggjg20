@@ -1,0 +1,37 @@
+{
+  "frames": {
+    "TreeBurn_1.png": {
+      "frame": { "x": 1, "y": 1, "w": 8, "h": 16 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+      "sourceSize": { "w": 8, "h": 16 }
+    },
+    "TreeBurn_2.png": {
+      "frame": { "x": 1, "y": 19, "w": 8, "h": 16 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+      "sourceSize": { "w": 8, "h": 16 }
+    },
+    "TreeBurn_3.png": {
+      "frame": { "x": 1, "y": 37, "w": 8, "h": 16 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+      "sourceSize": { "w": 8, "h": 16 }
+    }
+  },
+  "animations": {
+    "TreeBurn": ["TreeBurn_1.png", "TreeBurn_2.png", "TreeBurn_3.png"]
+  },
+  "meta": {
+    "app": "https://www.codeandweb.com/texturepacker",
+    "version": "1.0",
+    "image": "./assets/TreeBurn.png",
+    "format": "RGBA8888",
+    "size": { "w": 10, "h": 54 },
+    "scale": "1",
+    "smartupdate": "$TexturePacker:SmartUpdate:b4ef92df0169d4186cf30dbd6c97d4e1:7d767528455b50b6d236e15d6b59c0c8:e6c68d76f679809d7f7508ef6e8f1002$"
+  }
+}
