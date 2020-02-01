@@ -1,8 +1,9 @@
-import * as PIXI from 'pixi.js';
-import _bunny from '../assets/bunnys.png';
+import * as PIXI from "pixi.js";
+import _bunny from "../assets/bunnys.png";
+import input from "./input.js";
 
-const newStyle = document.createElement('style');
-const style = '* {padding: 0; margin: 0}';
+const newStyle = document.createElement("style");
+const style = "* {padding: 0; margin: 0}";
 newStyle.appendChild(document.createTextNode(style));
 document.head.appendChild(newStyle);
 
@@ -10,11 +11,11 @@ document.head.appendChild(newStyle);
 // with a fallback to a canvas render. It will also setup the ticker
 // and the root stage PIXI.Container
 const app = new PIXI.Application();
-app.renderer.view.style.position = 'absolute';
-app.renderer.view.style.display = 'block';
+app.renderer.view.style.position = "absolute";
+app.renderer.view.style.display = "block";
 app.renderer.resize(window.innerWidth, window.innerHeight);
 
-window.addEventListener('resize', function(event) {
+window.addEventListener("resize", function(event) {
   app.renderer.resize(window.innerWidth, window.innerHeight);
 });
 
@@ -23,7 +24,7 @@ window.addEventListener('resize', function(event) {
 document.body.appendChild(app.view);
 
 // load the texture we need
-app.loader.add('bunny', 'assets/bunnys.png').load((loader, resources) => {
+app.loader.add("bunny", "assets/bunnys.png").load((loader, resources) => {
   // This creates a texture from a 'bunny.png' image
   const bunny = new PIXI.Sprite(resources.bunny.texture);
 
@@ -41,6 +42,16 @@ app.loader.add('bunny', 'assets/bunnys.png').load((loader, resources) => {
   // Listen for frame updates
   app.ticker.add(() => {
     // each frame we spin the bunny around a bit
+    let horizontal, vertical;
+    if (input.gamepad_connected) {
+      [horizontal, vertical] = input.getGamepadJoystick();
+    }
+    console.log(horizontal, vertical);
+    if (horizontal < 0) {
+      bunny.x += 0.5;
+    } else {
+      bunny.x -= 0.5;
+    }
     bunny.rotation += 0.01;
   });
 });
