@@ -1,12 +1,8 @@
-import { Input } from './input';
 import * as PIXI from 'pixi.js';
-const { settings, Application, SCALE_MODES, Sprite } = PIXI;
+const { settings, Application, SCALE_MODES } = PIXI;
 import planetPath from '../assets/planet.png';
 import crosshairPath from '../assets/crosshair.png';
-
-import { Player } from './player';
-import { TargetMarker } from './target_marker';
-import { Fire } from "./audio";
+import { Fire } from './audio';
 import { Game } from './game';
 
 (window as any).fire = new Fire();
