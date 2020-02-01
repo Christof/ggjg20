@@ -36,6 +36,9 @@ app.loader
   .load((loader, resources) => {
     const player = new PIXI.Sprite(resources.player.texture);
     const planet = new PIXI.Sprite(resources.planet.texture);
+    const targetMarker = new PIXI.Sprite(resources.player.texture);
+    targetMarker.scale.x = 0.5;
+    targetMarker.scale.y = 0.5;
 
     const centerX = 0.5 * app.renderer.width;
     const centerY = 0.5 * app.renderer.height;
@@ -62,6 +65,7 @@ app.loader
     // Add the bunny to the scene we are building
     app.stage.addChild(planet);
     app.stage.addChild(player);
+    app.stage.addChild(targetMarker);
     app.stage.addChild(angles);
 
     // Listen for frame updates
@@ -71,8 +75,14 @@ app.loader
       let vertical = 0;
       if (input.gamepad_connected) {
         [horizontal, vertical] = input.getGamepadJoystick();
+        const movementThreshold = 0.1;
+        if (
+          Math.abs(horizontal) > movementThreshold &&
+          Math.abs(vertical) > movementThreshold
+        ) {
+          targetAngle = Math.atan2(-vertical, horizontal);
+        }
       }
-      targetAngle = Math.atan2(vertical, horizontal);
       console.log(horizontal, vertical, targetAngle);
       /*
       if (horizontal < 0) {
@@ -83,14 +93,25 @@ app.loader
       */
       planet.rotation += 0.01;
 
-      const diff = (angle - targetAngle) % (2 * Math.PI);
+      const diff = angle - targetAngle;
       if (Math.abs(diff) >= 0.1) {
         angle += 0.01 * Math.sign(angle - targetAngle);
+        angle = normalizeAngle(angle);
       }
       player.x = centerX + radius * Math.cos(angle);
       player.y = centerY - radius * Math.sin(angle);
       player.rotation = (angle / 360) * 2 * Math.PI;
 
+      targetMarker.x = centerX + radius * Math.cos(targetAngle);
+      targetMarker.y = centerY - radius * Math.sin(targetAngle);
+
       angles.text = `Target: ${targetAngle} Current: ${angle}`;
     });
   });
+
+function normalizeAngle(angle) {
+  const mod = angle % (2 * Math.PI);
+  if (mod < 0) return mod + 2 * Math.PI;
+
+  return mod;
+}
