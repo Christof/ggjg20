@@ -6,7 +6,10 @@ import crosshairPath from '../assets/crosshair.png';
 
 import { Player } from './player';
 import { TargetMarker } from './target_marker';
+import { audio } from "./audio";
 import { Game } from './game';
+
+(window as any).audio = audio;
 
 const newStyle = document.createElement('style');
 const style = '* {padding: 0; margin: 0}';
