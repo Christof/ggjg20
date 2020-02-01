@@ -2,11 +2,18 @@ import { Sprite, LoaderResource, IPoint, Container } from 'pixi.js';
 import { TargetMarker } from './target_marker';
 import { Player } from './player';
 import { Input } from './input';
+import { Tree } from './tree';
+import { Cell } from './cell';
+import { range } from 'lodash';
+
+const cellCount = 16;
 
 export class Game {
   private planet: Sprite;
   private targetMarker: TargetMarker;
   private player: Player;
+
+  private cells: Cell[];
 
   private targetAngle = 0.5 * Math.PI;
 
@@ -14,7 +21,7 @@ export class Game {
 
   constructor(
     private center: IPoint,
-    resources: Partial<Record<string, LoaderResource>>
+    private resources: Partial<Record<string, LoaderResource>>
   ) {
     this.planet = new Sprite(resources.planet.texture);
     this.planet.anchor.x = 0.5;
@@ -29,6 +36,18 @@ export class Game {
     this.container.addChild(this.planet);
     this.container.addChild(this.player.sprite);
     this.container.addChild(this.targetMarker.sprite);
+
+    this.cells = range(cellCount).map(() => new Cell(center, resources));
+    for (const cell of this.cells) {
+      this.container.addChild(cell.container);
+    }
+  }
+
+  private cellForAngle(angle: number) {
+    const usedAngle = angle < 0 ? angle + 2 * Math.PI : angle;
+    const index = Math.floor((usedAngle / (2 * Math.PI)) * cellCount);
+
+    return this.cells[index];
   }
 
   update() {
@@ -37,6 +56,12 @@ export class Game {
 
     this.player.update(this.targetAngle);
     this.targetMarker.update(this.targetAngle);
+
+    if (Input.isDown('e')) {
+      this.cellForAngle(this.player.angle).plant(this.player.angle);
+    }
+
+    this.cells.forEach(cell => cell.update());
   }
 }
 

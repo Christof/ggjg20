@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 const { settings, Application, SCALE_MODES } = PIXI;
 import planetPath from '../assets/planet.png';
 import crosshairPath from '../assets/crosshair.png';
+import treePath from '../assets/Tree_8x16.png';
 import { Fire } from './audio';
 import { Game } from './game';
 
@@ -35,6 +36,7 @@ document.body.appendChild(app.view);
 // load the texture we need
 app.loader
   .add('crosshair', crosshairPath)
+  .add('tree', treePath)
   .add('planet', planetPath)
   .load((loader, resources) => {
     const centerX = 0.25 * app.renderer.width;

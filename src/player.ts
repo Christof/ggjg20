@@ -1,14 +1,15 @@
-import { AnimatedSprite, IPoint, BaseTexture, Spritesheet } from "pixi.js";
-import { Input } from "./input";
-import alexJSON from "../assets/alex.json";
-import { startStepLoop, stopStepLoop } from "./audio";
+import { AnimatedSprite, IPoint, BaseTexture, Spritesheet } from 'pixi.js';
+import { Input } from './input';
+import alexJSON from '../assets/alex.json';
+import { posFromCylinderCoord, rotationToCenter } from './math';
+import { startStepLoop, stopStepLoop } from './audio';
 
 export class Player {
   private playerScale = 1;
   private radius = 85;
   private running = false;
 
-  private angle = 0.5 * Math.PI;
+  public angle = 0.5 * Math.PI;
   public sprite: AnimatedSprite;
 
   constructor(private center: IPoint) {
@@ -17,7 +18,7 @@ export class Player {
     spritesheet.parse(function() {
       // finished preparing spritesheet textures
     });
-    this.sprite = new AnimatedSprite(spritesheet.animations["Alex"]);
+    this.sprite = new AnimatedSprite(spritesheet.animations['Alex']);
     this.sprite.scale.set(this.playerScale);
 
     this.sprite.x = center.x;
@@ -41,11 +42,14 @@ export class Player {
       }
       this.angle = normalizeAngle(this.angle);
     }
-    this.sprite.x = this.center.x + this.radius * Math.cos(this.angle);
-    this.sprite.y = this.center.y - this.radius * Math.sin(this.angle);
+    this.sprite.position = posFromCylinderCoord(
+      this.center,
+      this.radius,
+      this.angle
+    );
     this.sprite.scale.x = (Math.sign(diff) || 1) * this.playerScale;
 
-    this.sprite.rotation = -this.angle + 0.5 * Math.PI;
+    this.sprite.rotation = rotationToCenter(this.angle);
 
     if (Input.hasAnyMovementInput() || needsMovement) {
       if (!this.running) {
