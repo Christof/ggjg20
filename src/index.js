@@ -27,6 +27,8 @@ window.addEventListener('resize', function(event) {
 // can then insert into the DOM
 document.body.appendChild(app.view);
 
+const targetAngle = 0.5 * Math.PI;
+
 // load the texture we need
 app.loader
   .add('player', playerPath)
@@ -53,9 +55,14 @@ app.loader
     planet.anchor.x = 0.5;
     planet.anchor.y = 0.5;
 
+    const angles = new PIXI.Text('Basic text in pixi');
+    angles.x = 10;
+    angles.y = 10;
+
     // Add the bunny to the scene we are building
     app.stage.addChild(planet);
     app.stage.addChild(player);
+    app.stage.addChild(angles);
 
     // Listen for frame updates
     app.ticker.add(() => {
@@ -72,9 +79,15 @@ app.loader
         planet.x -= 0.5;
       }
       planet.rotation += 0.01;
-      angle += 0.01;
+
+      const diff = (angle - targetAngle) % (2 * Math.PI);
+      if (Math.abs(diff) >= 0.1) {
+        angle += 0.01 * Math.sign(angle - targetAngle);
+      }
       player.x = centerX + radius * Math.cos(angle);
       player.y = centerY - radius * Math.sin(angle);
       player.rotation = (angle / 360) * 2 * Math.PI;
+
+      angles.text = `Target: ${targetAngle} Current: ${angle}`;
     });
   });
