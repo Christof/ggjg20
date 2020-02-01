@@ -14,6 +14,7 @@ import planetPath from '../assets/planet.png';
 import playerPath from '../assets/player.png';
 
 import alexJSON from '../assets/alex.json';
+import { Player } from './player';
 
 const newStyle = document.createElement('style');
 const style = '* {padding: 0; margin: 0}';
@@ -53,72 +54,35 @@ app.loader
     spritesheet.parse(function() {
       // finished preparing spritesheet textures
     });
-    const player = new AnimatedSprite(spritesheet.animations['Alex']);
-    const playerScale = 2;
-    player.scale.set(playerScale);
-    targetMarker.scale.x = 0.5;
-    targetMarker.scale.y = 0.5;
-
     const centerX = 0.25 * app.renderer.width;
     const centerY = 0.25 * app.renderer.height;
-    const radius = 88;
-    let angle = 0.5 * Math.PI;
-    player.x = centerX;
-    player.y = centerY - radius;
+    const center = new PIXI.Point(centerX, centerY);
+    const player = new Player(
+      new AnimatedSprite(spritesheet.animations['Alex']),
+      center
+    );
+    targetMarker.scale.x = 0.25;
+    targetMarker.scale.y = 0.25;
 
-    player.anchor.x = 0.5;
-    player.anchor.y = 0.5;
+    const radius = 88;
 
     planet.anchor.x = 0.5;
     planet.anchor.y = 0.5;
     planet.x = centerX;
     planet.y = centerY;
 
-    const angles = new Text('', { fill: 0xffffff, fontSize: 10 });
-    angles.x = 10;
-    angles.y = 10;
-
-    // Add the bunny to the scene we are building
     app.stage.addChild(planet);
-    app.stage.addChild(player);
+    app.stage.addChild(player.player);
     app.stage.addChild(targetMarker);
-    // app.stage.addChild(angles);
 
-    player.animationSpeed = 0.1;
-
-    // Listen for frame updates
     app.ticker.add(delta => {
       targetAngle = updateTargetAngleFromJoystick(targetAngle);
       targetAngle = updateTargetAngleFromKeyboard(targetAngle);
-      // console.log(horizontal, vertical, targetAngle, delta);
 
-      const playerSpeed = 0.01; // + delta;
-      const diff = (angle - targetAngle) % (2 * Math.PI);
-      const needsMovement = Math.abs(diff) >= 0.01;
-      if (needsMovement) {
-        if ((diff < 0 && diff >= -Math.PI) || diff > Math.PI) {
-          angle += playerSpeed;
-        } else {
-          angle -= playerSpeed;
-        }
-        angle = normalizeAngle(angle);
-      }
-      player.x = centerX + radius * Math.cos(angle);
-      player.y = centerY - radius * Math.sin(angle);
-      player.scale.x = (Math.sign(diff) || 1) * playerScale;
-
-      player.rotation = -angle + 0.5 * Math.PI;
-
-      if (Input.hasAnyMovementInput() || needsMovement) {
-        player.play();
-      } else {
-        player.gotoAndStop(1);
-      }
+      player.update(targetAngle);
 
       targetMarker.x = centerX + radius * Math.cos(targetAngle);
       targetMarker.y = centerY - radius * Math.sin(targetAngle);
-
-      angles.text = `Target: ${targetAngle} Current: ${angle}\nDiff: ${diff}`;
     });
   });
 
@@ -143,11 +107,4 @@ function updateTargetAngleFromJoystick(angle: number) {
 
   const [horizontal, vertical] = Input.getGamepadJoystick();
   return Math.atan2(-vertical, horizontal);
-}
-
-function normalizeAngle(angle: number) {
-  const mod = angle % (2 * Math.PI);
-  if (mod < -Math.PI) return mod + 2 * Math.PI;
-
-  return mod;
 }
