@@ -72,7 +72,7 @@ app.loader
     app.stage.addChild(planet);
     app.stage.addChild(player);
     app.stage.addChild(targetMarker);
-    app.stage.addChild(angles);
+    // app.stage.addChild(angles);
 
     player.animationSpeed = 0.1;
 
