@@ -5,10 +5,10 @@ export const Input = {
     keys: {} as { [key: string]: boolean }
   },
   getGamepadJoystick() {
-    if (!this.gamepad_connected) {
-      let gamepad = navigator.getGamepads()[this.gamepad_index];
-      return [gamepad.axes[0], gamepad.axes[1]];
-    }
+    if (!this.gamepad_connected) return [undefined, undefined];
+
+    let gamepad = navigator.getGamepads()[this.gamepad_index];
+    return [gamepad.axes[0], gamepad.axes[1]];
   },
   isDown(key: string) {
     if (this.current.keys[key]) {
