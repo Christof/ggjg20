@@ -1,7 +1,7 @@
 import { Sprite, IPoint, Texture } from 'pixi.js';
 
 export class TargetMarker {
-  private radius = 85;
+  private radius = 98;
 
   public sprite: Sprite;
 
