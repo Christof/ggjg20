@@ -19,16 +19,13 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({ title: "little planet", template: "index.html" }),
-    new webpack.IgnorePlugin({
-      resourceRegExp: /.json/
-    }),
-    new CopyPlugin([{ from: "./assets", to: "./assets" }]),
-    new CopyPlugin([{ from: "./src/pixi.js", to: "pixi.js" }])
+    new CopyPlugin([{ from: "./src/pixi.js", to: "pixi.js" }]),
+    new CopyPlugin([{ from: "./assets/animations", to: "./" }])
   ],
   module: {
     rules: [
       {
-        test: /\.(png|json)/,
+        test: /\.png/,
         loader: "file-loader",
         options: {
           name: "[path]/[name].[ext]"

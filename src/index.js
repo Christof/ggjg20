@@ -2,7 +2,8 @@ import * as PIXI from 'pixi.js';
 import input from './input.js';
 import planetPath from '../assets/planet.png';
 import playerPath from '../assets/player.png';
-import alexPNGPath from '../assets/alex.png';
+
+import alexJSON from "../assets/alex.json";
 
 const newStyle = document.createElement('style');
 const style = '* {padding: 0; margin: 0}';
@@ -30,19 +31,19 @@ window.addEventListener('resize', function(event) {
 document.body.appendChild(app.view);
 
 let targetAngle = 0.5 * Math.PI;
-
 // load the texture we need
 app.loader
   .add('player', playerPath)
   .add('planet', planetPath)
-  .add('test', './assets/alex.json')
   .load((loader, resources) => {
     const planet = new PIXI.Sprite(resources.planet.texture);
     const targetMarker = new PIXI.Sprite(resources.player.texture);
-
-    const player = new PIXI.AnimatedSprite(
-      resources.test.spritesheet.animations['Alex']
-    );
+    const baseTexture = new PIXI.BaseTexture(alexJSON.meta.image, null, 1);
+    const spritesheet = new PIXI.Spritesheet(baseTexture, alexJSON);
+    spritesheet.parse(function (textures) {
+       // finished preparing spritesheet textures
+    });
+    const player = new PIXI.AnimatedSprite(spritesheet.animations["Alex"]);
     player.scale.set(2, 2);
     targetMarker.scale.x = 0.5;
     targetMarker.scale.y = 0.5;
@@ -77,19 +78,29 @@ app.loader
 
     // Listen for frame updates
     app.ticker.add(delta => {
-      targetAngle = updateTargetAngleFromJoystick(targetAngle);
+      // each frame we spin the bunny around a bit
+      let horizontal = 0;
+      let vertical = 0;
+      if (input.gamepad_connected) {
+        [horizontal, vertical] = input.getGamepadJoystick();
+        const movementThreshold = 0.1;
+        if (
+          Math.abs(horizontal) > movementThreshold &&
+          Math.abs(vertical) > movementThreshold
+        ) {
+          targetAngle = Math.atan2(-vertical, horizontal);
+        }
+      }
       targetAngle = updateTargetAngleFromKeyboard(targetAngle);
+      // console.log(horizontal, vertical, targetAngle, delta);
 
       const playerSpeed = 0.01; // + delta;
       const diff = (angle - targetAngle) % (2 * Math.PI);
-      let dir = 0;
       if (Math.abs(diff) >= 0.01) {
-        if ((diff < 0 && diff >= -Math.PI) || diff > 1 * Math.PI) {
+        if ((diff < 0 && diff >= -Math.PI) || diff > 2 * Math.PI) {
           angle += playerSpeed;
-          dir = 1;
         } else {
           angle -= playerSpeed;
-          dir = -1;
         }
         angle = normalizeAngle(angle);
       }
@@ -101,7 +112,7 @@ app.loader
       targetMarker.x = centerX + radius * Math.cos(targetAngle);
       targetMarker.y = centerY - radius * Math.sin(targetAngle);
 
-      angles.text = `Target: ${targetAngle} Current: ${angle}\nDiff: ${diff} ${dir}`;
+      angles.text = `Target: ${targetAngle} Current: ${angle}\nDiff: ${diff}`;
     });
   });
 
