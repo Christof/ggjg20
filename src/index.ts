@@ -46,7 +46,7 @@ let targetAngle = 0.5 * Math.PI;
 app.loader
   .add('crosshair', crosshairPath)
   .add('planet', planetPath)
-  .load((loader: any, resources: any) => {
+  .load((loader, resources) => {
     const planet = new Sprite(resources.planet.texture);
     const targetMarker = new Sprite(resources.crosshair.texture);
     const baseTexture = new BaseTexture(alexJSON.meta.image, null);
