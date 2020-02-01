@@ -5,7 +5,7 @@ import crosshairPath from '../assets/crosshair.png';
 import { Fire } from './audio';
 import { Game } from './game';
 
-(window as any).fire = new Fire();
+(window as any).fire = Fire;
 
 const newStyle = document.createElement('style');
 const style = '* {padding: 0; margin: 0}';
