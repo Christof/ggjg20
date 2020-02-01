@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import input from './input.js';
 import planetPath from '../assets/planet.png';
 import playerPath from '../assets/player.png';
-import alexPNGPath from "../assets/alex.png";
+import alexPNGPath from '../assets/alex.png';
 
 const newStyle = document.createElement('style');
 const style = '* {padding: 0; margin: 0}';
@@ -35,22 +35,21 @@ let targetAngle = 0.5 * Math.PI;
 app.loader
   .add('player', playerPath)
   .add('planet', planetPath)
-  .add('test', "./assets/alex.json")
+  .add('test', './assets/alex.json')
   .load((loader, resources) => {
-    const player = new PIXI.Sprite(resources.player.texture);
     const planet = new PIXI.Sprite(resources.planet.texture);
     const targetMarker = new PIXI.Sprite(resources.player.texture);
 
-    const test = new PIXI.AnimatedSprite(resources.test.spritesheet.animations["Alex"]);
-    test.x = 10;
-    test.y = 150;
-    test.scale.set(5, 5);
+    const player = new PIXI.AnimatedSprite(
+      resources.test.spritesheet.animations['Alex']
+    );
+    player.scale.set(2, 2);
     targetMarker.scale.x = 0.5;
     targetMarker.scale.y = 0.5;
 
     const centerX = 0.25 * app.renderer.width;
     const centerY = 0.25 * app.renderer.height;
-    const radius = 84;
+    const radius = 88;
     let angle = 0;
     player.x = centerX;
     player.y = centerY - radius;
@@ -68,14 +67,13 @@ app.loader
     angles.y = 10;
 
     // Add the bunny to the scene we are building
-    app.stage.addChild(test);
     app.stage.addChild(planet);
     app.stage.addChild(player);
     app.stage.addChild(targetMarker);
     app.stage.addChild(angles);
 
-    test.animationSpeed = 0.1;
-    test.play();
+    player.animationSpeed = 0.1;
+    player.play();
 
     // Listen for frame updates
     app.ticker.add(delta => {
@@ -98,7 +96,7 @@ app.loader
       player.x = centerX + radius * Math.cos(angle);
       player.y = centerY - radius * Math.sin(angle);
 
-      player.rotation = -angle - 0.5 * Math.PI;
+      player.rotation = -angle + 0.5 * Math.PI;
 
       targetMarker.x = centerX + radius * Math.cos(targetAngle);
       targetMarker.y = centerY - radius * Math.sin(targetAngle);
