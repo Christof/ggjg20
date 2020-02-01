@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import input from './input.js';
-import _planet from '../assets/planet.png';
-import _player from '../assets/player.png';
+import planetPath from '../assets/planet.png';
+import playerPath from '../assets/player.png';
 
 const newStyle = document.createElement('style');
 const style = '* {padding: 0; margin: 0}';
@@ -29,8 +29,8 @@ document.body.appendChild(app.view);
 
 // load the texture we need
 app.loader
-  .add('player', 'assets/player.png')
-  .add('planet', 'assets/planet.png')
+  .add('player', playerPath)
+  .add('planet', planetPath)
   .load((loader, resources) => {
     const player = new PIXI.Sprite(resources.player.texture);
     const planet = new PIXI.Sprite(resources.planet.texture);
