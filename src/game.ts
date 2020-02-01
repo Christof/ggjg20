@@ -60,6 +60,8 @@ export class Game {
     if (Input.isDown('e')) {
       this.cellForAngle(this.player.angle).plant(this.player.angle);
     }
+
+    this.cells.forEach(cell => cell.update());
   }
 }
 
