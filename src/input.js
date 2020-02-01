@@ -1,14 +1,14 @@
 const Input = {
-    gamepad_connected: false,
+  gamepad_connected: false,
   gamepad_index: null,
   current: {
-    key: null,
+    key: null
   },
   getGamepadJoystick() {
-      if (this.gamepad_index != null) {
-        let gamepad = navigator.getGamepads()[this.gamepad_index];
-        return [gamepad.axes[0], gamepad.axes[1]];
-      }
+    if (this.gamepad_index != null) {
+      let gamepad = navigator.getGamepads()[this.gamepad_index];
+      return [gamepad.axes[0], gamepad.axes[1]];
+    }
   },
   isDown(key) {
     if (key == this.current.key) {
@@ -17,14 +17,14 @@ const Input = {
   }
 };
 
-window.addEventListener("gamepadconnected", (ev) => {
-    Input.gamepad_index = ev.gamepad.index;
-    Input.gamepad_connected = true;
+window.addEventListener('gamepadconnected', ev => {
+  Input.gamepad_index = ev.gamepad.index;
+  Input.gamepad_connected = true;
 });
 
-window.addEventListener("gamepaddisconnected", (ev) => {
-    Input.gamepad_index = null;
-    Input.gamepad_connected = false;
+window.addEventListener('gamepaddisconnected', ev => {
+  Input.gamepad_index = null;
+  Input.gamepad_connected = false;
 });
 
 window.onkeydown = ev => {
