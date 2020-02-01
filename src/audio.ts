@@ -12,19 +12,23 @@ function helper() {
     return [id, fireloop.play()];
 }
 
-export const audio = {
-    startFire() {
-        let [firestart_id, loop_id] = helper();
-        fireloop.pause(loop_id);
+export class Fire {
+    firestart_id = 0;
+    fireloop_id = 0;
+
+    start() {
+        this.firestart_id = firestart.play();
+        this.fireloop_id = fireloop.play();
+        fireloop.pause(this.fireloop_id);
         firestart.on("end", () => {
             fireloop.play();
-        }, firestart_id);
-        return loop_id;
-    },
-    stopFire(id: number) {
+        }, this.firestart_id);
+    }
+
+    stop() {
         fireloop.on("end", () => {
             firestop.play();
-            fireloop.pause(id);
-        }, id)
+            fireloop.pause(this.fireloop_id);
+        })
     }
 }
