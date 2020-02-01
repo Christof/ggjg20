@@ -8,7 +8,7 @@ export class Player {
   private radius = 85;
   private running = false;
 
-  private angle = 0.5 * Math.PI;
+  public angle = 0.5 * Math.PI;
   public sprite: AnimatedSprite;
 
   constructor(private center: IPoint) {

@@ -2,11 +2,14 @@ import { Sprite, LoaderResource, IPoint, Container } from 'pixi.js';
 import { TargetMarker } from './target_marker';
 import { Player } from './player';
 import { Input } from './input';
+import { Tree } from './tree';
 
 export class Game {
   private planet: Sprite;
   private targetMarker: TargetMarker;
   private player: Player;
+
+  private trees: Tree[] = [];
 
   private targetAngle = 0.5 * Math.PI;
 
@@ -14,7 +17,7 @@ export class Game {
 
   constructor(
     private center: IPoint,
-    resources: Partial<Record<string, LoaderResource>>
+    private resources: Partial<Record<string, LoaderResource>>
   ) {
     this.planet = new Sprite(resources.planet.texture);
     this.planet.anchor.x = 0.5;
@@ -37,6 +40,16 @@ export class Game {
 
     this.player.update(this.targetAngle);
     this.targetMarker.update(this.targetAngle);
+
+    if (Input.isDown('e')) {
+      const tree = new Tree(
+        this.center,
+        this.player.angle,
+        this.resources.tree.texture
+      );
+      this.trees.push(tree);
+      this.container.addChild(tree.sprite);
+    }
   }
 }
 
