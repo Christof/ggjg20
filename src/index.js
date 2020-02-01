@@ -84,14 +84,6 @@ app.loader
         }
       }
       // console.log(horizontal, vertical, targetAngle, delta);
-      /*
-      if (horizontal < 0) {
-        planet.x += 0.5;
-      } else if (horizontal > 0) {
-        planet.x -= 0.5;
-      }
-      */
-      //planet.rotation += 0.01 + delta;
 
       const playerSpeed = 0.01; // + delta;
       const diff = angle - targetAngle;
