@@ -1,6 +1,5 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -27,7 +26,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.png/,
+        test: /\.(png|mp3)/,
         loader: 'file-loader',
         options: {
           name: '[path]/[name].[ext]'

@@ -1,6 +1,6 @@
 /*!
  * pixi.js - v5.2.1
- * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+ * Compiled Tue, 28 Jan 2020 23:33:11 UTC
  *
  * pixi.js is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -472,7 +472,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/polyfill - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/polyfill is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -723,7 +723,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/settings - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/settings is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -3512,7 +3512,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/constants - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/constants is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -3891,7 +3891,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/utils - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/utils is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -4792,7 +4792,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/math - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/math is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -6697,7 +6697,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/display - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/display is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -8598,7 +8598,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/accessibility - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/accessibility is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -9289,7 +9289,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/ticker - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/ticker is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -10131,7 +10131,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/interaction - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/interaction is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -12728,7 +12728,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/runner - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/runner is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -12924,7 +12924,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/core - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/core is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -25982,7 +25982,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/app - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/app is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -26207,7 +26207,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/extract - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/extract is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -29029,7 +29029,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/loaders - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/loaders is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -29330,7 +29330,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/particles - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/particles is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -30307,7 +30307,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/graphics - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/graphics is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -34112,7 +34112,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/sprite - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/sprite is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -34789,7 +34789,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/text - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/text is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -37089,7 +37089,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/prepare - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/prepare is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -37815,7 +37815,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/spritesheet - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/spritesheet is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -38223,7 +38223,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/sprite-tiling - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/sprite-tiling is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -38728,7 +38728,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/text-bitmap - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/text-bitmap is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -39554,7 +39554,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/filter-alpha - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/filter-alpha is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -39618,7 +39618,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/filter-blur - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/filter-blur is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -40043,7 +40043,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/filter-color-matrix - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/filter-color-matrix is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -40641,7 +40641,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/filter-displacement - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/filter-displacement is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -40758,7 +40758,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/filter-fxaa - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/filter-fxaa is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -40795,7 +40795,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/filter-noise - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/filter-noise is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -40874,7 +40874,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/mixin-cache-as-bitmap - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/mixin-cache-as-bitmap is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -41299,7 +41299,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/mixin-get-child-by-name - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/mixin-get-child-by-name is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -41336,7 +41336,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/mixin-get-global-position - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/mixin-get-global-position is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -42742,7 +42742,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/mesh - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/mesh is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -43522,7 +43522,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/mesh-extras - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/mesh-extras is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -44329,7 +44329,7 @@ var PIXI = (function (exports) {
 
 	/*!
 	 * @pixi/sprite-animated - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * Compiled Tue, 28 Jan 2020 23:33:11 UTC
 	 *
 	 * @pixi/sprite-animated is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
