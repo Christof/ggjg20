@@ -78,16 +78,7 @@ app.loader
 
     // Listen for frame updates
     app.ticker.add(delta => {
-      if (input.gamepad_connected) {
-        const [horizontal, vertical] = input.getGamepadJoystick();
-        const movementThreshold = 0.1;
-        if (
-          Math.abs(horizontal) > movementThreshold &&
-          Math.abs(vertical) > movementThreshold
-        ) {
-          targetAngle = Math.atan2(-vertical, horizontal);
-        }
-      }
+      targetAngle = updateTargetAngleFromJoystick(targetAngle);
       targetAngle = updateTargetAngleFromKeyboard(targetAngle);
       // console.log(horizontal, vertical, targetAngle, delta);
 
@@ -95,7 +86,7 @@ app.loader
       const diff = (angle - targetAngle) % (2 * Math.PI);
       const needsMovement = Math.abs(diff) >= 0.01;
       if (needsMovement) {
-        if ((diff < 0 && diff >= -Math.PI) || diff > 2 * Math.PI) {
+        if ((diff < 0 && diff >= -Math.PI) || diff > Math.PI) {
           angle += playerSpeed;
         } else {
           angle -= playerSpeed;
