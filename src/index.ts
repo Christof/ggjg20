@@ -52,7 +52,7 @@ app.loader
     planet.y = centerY;
 
     app.stage.addChild(planet);
-    app.stage.addChild(player.player);
+    app.stage.addChild(player.sprite);
     app.stage.addChild(targetMarker);
 
     app.ticker.add(delta => {

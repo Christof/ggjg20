@@ -7,7 +7,7 @@ export class Player {
   private radius = 85;
 
   private angle = 0.5 * Math.PI;
-  public player: AnimatedSprite;
+  public sprite: AnimatedSprite;
 
   constructor(private center: IPoint) {
     const baseTexture = new BaseTexture(alexJSON.meta.image, null);
@@ -15,16 +15,16 @@ export class Player {
     spritesheet.parse(function() {
       // finished preparing spritesheet textures
     });
-    this.player = new AnimatedSprite(spritesheet.animations['Alex']);
-    this.player.scale.set(this.playerScale);
+    this.sprite = new AnimatedSprite(spritesheet.animations['Alex']);
+    this.sprite.scale.set(this.playerScale);
 
-    this.player.x = center.x;
-    this.player.y = center.y - this.radius;
+    this.sprite.x = center.x;
+    this.sprite.y = center.y - this.radius;
 
-    this.player.anchor.x = 0.5;
-    this.player.anchor.y = 0.5;
+    this.sprite.anchor.x = 0.5;
+    this.sprite.anchor.y = 0.5;
 
-    this.player.animationSpeed = 0.1;
+    this.sprite.animationSpeed = 0.1;
   }
 
   update(targetAngle: number) {
@@ -39,16 +39,16 @@ export class Player {
       }
       this.angle = normalizeAngle(this.angle);
     }
-    this.player.x = this.center.x + this.radius * Math.cos(this.angle);
-    this.player.y = this.center.y - this.radius * Math.sin(this.angle);
-    this.player.scale.x = (Math.sign(diff) || 1) * this.playerScale;
+    this.sprite.x = this.center.x + this.radius * Math.cos(this.angle);
+    this.sprite.y = this.center.y - this.radius * Math.sin(this.angle);
+    this.sprite.scale.x = (Math.sign(diff) || 1) * this.playerScale;
 
-    this.player.rotation = -this.angle + 0.5 * Math.PI;
+    this.sprite.rotation = -this.angle + 0.5 * Math.PI;
 
     if (Input.hasAnyMovementInput() || needsMovement) {
-      this.player.play();
+      this.sprite.play();
     } else {
-      this.player.gotoAndStop(1);
+      this.sprite.gotoAndStop(1);
     }
   }
 }
