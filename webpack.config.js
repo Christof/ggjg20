@@ -20,7 +20,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({ title: "little planet", template: "index.html" }),
     new CopyPlugin([{ from: "./src/pixi.js", to: "pixi.js" }]),
-    new CopyPlugin([{ from: "./assets/animations", to: "./" }])
+    new CopyPlugin([{ from: "./assets/animations", to: "./assets" }])
   ],
   module: {
     rules: [
