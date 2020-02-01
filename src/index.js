@@ -69,7 +69,7 @@ app.loader
     app.stage.addChild(angles);
 
     // Listen for frame updates
-    app.ticker.add(() => {
+    app.ticker.add(delta => {
       // each frame we spin the bunny around a bit
       let horizontal = 0;
       let vertical = 0;
@@ -83,7 +83,7 @@ app.loader
           targetAngle = Math.atan2(-vertical, horizontal);
         }
       }
-      console.log(horizontal, vertical, targetAngle);
+      // console.log(horizontal, vertical, targetAngle, delta);
       /*
       if (horizontal < 0) {
         planet.x += 0.5;
@@ -91,27 +91,32 @@ app.loader
         planet.x -= 0.5;
       }
       */
-      planet.rotation += 0.01;
+      //planet.rotation += 0.01 + delta;
 
+      const playerSpeed = 0.01; // + delta;
       const diff = angle - targetAngle;
-      if (Math.abs(diff) >= 0.1) {
-        angle += 0.01 * Math.sign(angle - targetAngle);
+      if (Math.abs(diff) >= 0.01) {
+        if ((diff < 0 && diff >= -Math.PI) || diff > 2 * Math.PI) {
+          angle += playerSpeed;
+        } else {
+          angle -= playerSpeed;
+        }
         angle = normalizeAngle(angle);
       }
       player.x = centerX + radius * Math.cos(angle);
       player.y = centerY - radius * Math.sin(angle);
-      player.rotation = (angle / 360) * 2 * Math.PI;
+      // player.rotation = (angle / 360) * 2 * Math.PI;
 
       targetMarker.x = centerX + radius * Math.cos(targetAngle);
       targetMarker.y = centerY - radius * Math.sin(targetAngle);
 
-      angles.text = `Target: ${targetAngle} Current: ${angle}`;
+      angles.text = `Target: ${targetAngle} Current: ${angle}\nDiff: ${diff}`;
     });
   });
 
 function normalizeAngle(angle) {
   const mod = angle % (2 * Math.PI);
-  if (mod < 0) return mod + 2 * Math.PI;
+  if (mod < -Math.PI) return mod + 2 * Math.PI;
 
   return mod;
 }
