@@ -5,6 +5,7 @@ import planetPath from '../assets/planet.png';
 import crosshairPath from '../assets/crosshair.png';
 
 import { Player } from './player';
+import { TargetMarker } from './target_marker';
 
 const newStyle = document.createElement('style');
 const style = '* {padding: 0; margin: 0}';
@@ -32,19 +33,20 @@ window.addEventListener('resize', function(event) {
 document.body.appendChild(app.view);
 
 let targetAngle = 0.5 * Math.PI;
+
 // load the texture we need
 app.loader
   .add('crosshair', crosshairPath)
   .add('planet', planetPath)
   .load((loader, resources) => {
-    const planet = new Sprite(resources.planet.texture);
-    const targetMarker = new Sprite(resources.crosshair.texture);
     const centerX = 0.25 * app.renderer.width;
     const centerY = 0.25 * app.renderer.height;
     const center = new PIXI.Point(centerX, centerY);
-    const player = new Player(center);
 
-    const radius = 88;
+    const planet = new Sprite(resources.planet.texture);
+    const targetMarker = new TargetMarker(center, resources.crosshair.texture);
+    targetMarker.update(targetAngle);
+    const player = new Player(center);
 
     planet.anchor.x = 0.5;
     planet.anchor.y = 0.5;
@@ -53,16 +55,14 @@ app.loader
 
     app.stage.addChild(planet);
     app.stage.addChild(player.sprite);
-    app.stage.addChild(targetMarker);
+    app.stage.addChild(targetMarker.sprite);
 
     app.ticker.add(delta => {
       targetAngle = updateTargetAngleFromJoystick(targetAngle);
       targetAngle = updateTargetAngleFromKeyboard(targetAngle);
 
       player.update(targetAngle);
-
-      targetMarker.x = centerX + radius * Math.cos(targetAngle);
-      targetMarker.y = centerY - radius * Math.sin(targetAngle);
+      targetMarker.update(targetAngle);
     });
   });
 
