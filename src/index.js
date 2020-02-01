@@ -3,7 +3,7 @@ import input from './input.js';
 import planetPath from '../assets/planet.png';
 import playerPath from '../assets/player.png';
 
-import alexJSON from "../assets/alex.json";
+import alexJSON from '../assets/alex.json';
 
 const newStyle = document.createElement('style');
 const style = '* {padding: 0; margin: 0}';
@@ -40,10 +40,10 @@ app.loader
     const targetMarker = new PIXI.Sprite(resources.player.texture);
     const baseTexture = new PIXI.BaseTexture(alexJSON.meta.image, null, 1);
     const spritesheet = new PIXI.Spritesheet(baseTexture, alexJSON);
-    spritesheet.parse(function (textures) {
-       // finished preparing spritesheet textures
+    spritesheet.parse(function(textures) {
+      // finished preparing spritesheet textures
     });
-    const player = new PIXI.AnimatedSprite(spritesheet.animations["Alex"]);
+    const player = new PIXI.AnimatedSprite(spritesheet.animations['Alex']);
     player.scale.set(2, 2);
     targetMarker.scale.x = 0.5;
     targetMarker.scale.y = 0.5;
@@ -51,7 +51,7 @@ app.loader
     const centerX = 0.25 * app.renderer.width;
     const centerY = 0.25 * app.renderer.height;
     const radius = 88;
-    let angle = 0;
+    let angle = 0.5 * Math.PI;
     player.x = centerX;
     player.y = centerY - radius;
 
@@ -74,15 +74,17 @@ app.loader
     app.stage.addChild(angles);
 
     player.animationSpeed = 0.1;
-    player.play();
 
     // Listen for frame updates
     app.ticker.add(delta => {
-      // each frame we spin the bunny around a bit
-      let horizontal = 0;
-      let vertical = 0;
+      if (input.hasAnyInput()) {
+        player.play();
+      } else {
+        player.gotoAndStop(1);
+      }
+
       if (input.gamepad_connected) {
-        [horizontal, vertical] = input.getGamepadJoystick();
+        const [horizontal, vertical] = input.getGamepadJoystick();
         const movementThreshold = 0.1;
         if (
           Math.abs(horizontal) > movementThreshold &&

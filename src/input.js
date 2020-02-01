@@ -67,6 +67,9 @@ const Input = {
     if (this.isDown("ArrowDown")) {
       return true;
     }
+  },
+  hasAnyInput() {
+    return this.current.key != null || this.hasGamepadMovementAboveThreshold();
   }
 };
 
