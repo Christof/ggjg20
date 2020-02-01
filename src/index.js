@@ -44,7 +44,8 @@ app.loader
       // finished preparing spritesheet textures
     });
     const player = new PIXI.AnimatedSprite(spritesheet.animations['Alex']);
-    player.scale.set(2, 2);
+    const playerScale = 2;
+    player.scale.set(playerScale);
     targetMarker.scale.x = 0.5;
     targetMarker.scale.y = 0.5;
 
@@ -108,6 +109,7 @@ app.loader
       }
       player.x = centerX + radius * Math.cos(angle);
       player.y = centerY - radius * Math.sin(angle);
+      player.scale.x = (Math.sign(diff) || 1) * playerScale;
 
       player.rotation = -angle + 0.5 * Math.PI;
 
