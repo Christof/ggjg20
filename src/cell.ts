@@ -35,5 +35,11 @@ export class Cell {
       this.container.removeChildren();
       this.container.addChild(burningTree.sprite);
     }
+
+    if (this.isBurning && Math.random() > 0.999) {
+      this.isBurning = false;
+      this.hasTree = false;
+      this.container.removeChildren();
+    }
   }
 }
