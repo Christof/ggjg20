@@ -14,6 +14,16 @@ const Input = {
     if (key == this.current.key) {
       return true;
     }
+  },
+  hasGamepadMovementAboveThreshold() {
+    if (this.gamepad_index == null) return false;
+
+    const [horizontal, vertical] = this.getGamepadJoystick();
+    const movementThreshold = 0.1;
+    return (
+      Math.abs(horizontal) > movementThreshold &&
+      Math.abs(vertical) > movementThreshold
+    );
   }
 };
 
