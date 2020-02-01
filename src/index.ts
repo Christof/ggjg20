@@ -6,6 +6,7 @@ import crosshairPath from '../assets/crosshair.png';
 
 import { Player } from './player';
 import { TargetMarker } from './target_marker';
+import { Game } from './game';
 
 const newStyle = document.createElement('style');
 const style = '* {padding: 0; margin: 0}';
@@ -32,8 +33,6 @@ window.addEventListener('resize', function(event) {
 // can then insert into the DOM
 document.body.appendChild(app.view);
 
-let targetAngle = 0.5 * Math.PI;
-
 // load the texture we need
 app.loader
   .add('crosshair', crosshairPath)
@@ -43,48 +42,10 @@ app.loader
     const centerY = 0.25 * app.renderer.height;
     const center = new PIXI.Point(centerX, centerY);
 
-    const planet = new Sprite(resources.planet.texture);
-    const targetMarker = new TargetMarker(center, resources.crosshair.texture);
-    targetMarker.update(targetAngle);
-    const player = new Player(center);
-
-    planet.anchor.x = 0.5;
-    planet.anchor.y = 0.5;
-    planet.x = centerX;
-    planet.y = centerY;
-
-    app.stage.addChild(planet);
-    app.stage.addChild(player.sprite);
-    app.stage.addChild(targetMarker.sprite);
+    const game = new Game(center, resources);
+    app.stage.addChild(game.container);
 
     app.ticker.add(delta => {
-      targetAngle = updateTargetAngleFromJoystick(targetAngle);
-      targetAngle = updateTargetAngleFromKeyboard(targetAngle);
-
-      player.update(targetAngle);
-      targetMarker.update(targetAngle);
+      game.update();
     });
   });
-
-function updateTargetAngleFromKeyboard(angle: number) {
-  if (!Input.hasKeyboardMovementInput()) return angle;
-
-  const speed = 0.01;
-  let x = Math.cos(angle);
-  let y = Math.sin(angle);
-
-  if (Input.moveUp()) y += speed;
-  if (Input.moveDown()) y -= speed;
-  if (Input.moveLeft()) x -= speed;
-  if (Input.moveRight()) x += speed;
-
-  return Math.atan2(y, x);
-}
-
-function updateTargetAngleFromJoystick(angle: number) {
-  if (!Input.gamepad_connected || !Input.hasGamepadMovementAboveThreshold())
-    return angle;
-
-  const [horizontal, vertical] = Input.getGamepadJoystick();
-  return Math.atan2(-vertical, horizontal);
-}
