@@ -12,6 +12,7 @@ document.head.appendChild(newStyle);
 // with a fallback to a canvas render. It will also setup the ticker
 // and the root stage PIXI.Container
 const app = new PIXI.Application();
+app.stage.scale.set(2, 2);
 app.renderer.view.style.position = 'absolute';
 app.renderer.view.style.display = 'block';
 app.renderer.resize(window.innerWidth, window.innerHeight);
@@ -40,8 +41,8 @@ app.loader
     targetMarker.scale.x = 0.5;
     targetMarker.scale.y = 0.5;
 
-    const centerX = 0.5 * app.renderer.width;
-    const centerY = 0.5 * app.renderer.height;
+    const centerX = 0.25 * app.renderer.width;
+    const centerY = 0.25 * app.renderer.height;
     const radius = 80;
     let angle = 0;
     player.x = centerX;
@@ -50,13 +51,10 @@ app.loader
     player.anchor.x = 0.5;
     player.anchor.y = 0.5;
 
-    // Setup the position of the bunny
-    planet.x = app.renderer.width / 2;
-    planet.y = app.renderer.height / 2;
-
-    // Rotate around the center
     planet.anchor.x = 0.5;
     planet.anchor.y = 0.5;
+    planet.x = centerX;
+    planet.y = centerY;
 
     const angles = new PIXI.Text('Basic text in pixi');
     angles.x = 10;
