@@ -27,7 +27,7 @@ window.addEventListener('resize', function(event) {
 // can then insert into the DOM
 document.body.appendChild(app.view);
 
-const targetAngle = 0.5 * Math.PI;
+let targetAngle = 0.5 * Math.PI;
 
 // load the texture we need
 app.loader
@@ -72,12 +72,15 @@ app.loader
       if (input.gamepad_connected) {
         [horizontal, vertical] = input.getGamepadJoystick();
       }
-      console.log(horizontal, vertical);
+      targetAngle = Math.atan2(vertical, horizontal);
+      console.log(horizontal, vertical, targetAngle);
+      /*
       if (horizontal < 0) {
         planet.x += 0.5;
       } else if (horizontal > 0) {
         planet.x -= 0.5;
       }
+      */
       planet.rotation += 0.01;
 
       const diff = (angle - targetAngle) % (2 * Math.PI);
