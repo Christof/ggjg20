@@ -127,18 +127,11 @@ function updateTargetAngleFromKeyboard(angle) {
 }
 
 function updateTargetAngleFromJoystick(angle) {
-  if (!input.gamepad_connected) return angle;
+  if (!input.gamepad_connected || !input.hasGamepadMovementAboveThreshold())
+    return angle;
 
   const [horizontal, vertical] = input.getGamepadJoystick();
-  const movementThreshold = 0.1;
-  if (
-    Math.abs(horizontal) > movementThreshold &&
-    Math.abs(vertical) > movementThreshold
-  ) {
-    return Math.atan2(-vertical, horizontal);
-  }
-
-  return angle;
+  return Math.atan2(-vertical, horizontal);
 }
 
 function normalizeAngle(angle) {
