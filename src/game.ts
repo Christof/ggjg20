@@ -61,6 +61,10 @@ export class Game {
       this.cellForAngle(this.player.angle).plant(this.player.angle);
     }
 
+    if (Input.isDown('q')) {
+      this.cellForAngle(this.player.angle).quench(this.player.angle);
+    }
+
     this.cells.forEach(cell => cell.update());
   }
 }
