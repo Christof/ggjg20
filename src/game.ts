@@ -46,7 +46,8 @@ export class Game {
       resources.layer2.texture
     );
 
-    this.bar.container.x = center.x + 100;
+    this.bar.container.x = center.x + 160;
+    this.bar.container.y = center.y - 120;
 
     this.container = new Container();
     this.container.addChild(this.stars.sprite);
