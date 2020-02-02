@@ -1,5 +1,5 @@
-import { Sprite, LoaderResource, IPoint, Container } from "pixi.js";
-import { Input } from "./input";
+import { Sprite, LoaderResource, IPoint, Container } from 'pixi.js';
+import { Input } from './input';
 
 export class Menu {
   // load the texture we need
@@ -26,9 +26,10 @@ export class Menu {
 
   constructor(
     private center: IPoint,
-    resources: Partial<Record<string, LoaderResource>>,
+    private resources: Partial<Record<string, LoaderResource>>,
     private startGame: () => void
   ) {
+
     this.menuBackground = new Sprite(resources.menuBackground.texture);
     this.menuBackground.anchor.x = 0.5;
     this.menuBackground.anchor.y = 0.5;
@@ -54,6 +55,30 @@ export class Menu {
     this.startButton.x = center.x * 0.5;
     this.startButton.y = center.y * 1.5;
     this.startButton = scaleDown(this.startButton);
+
+    this.startButton.interactive = true;
+    this.startButton.hitArea = new PIXI.Rectangle(
+      0,
+      0,
+      this.startButton.width * 2,
+      this.startButton.height * 2
+    );
+    this.startButton.on('mouseover', () => {
+      this.startButton.texture = this.resources.startSelected.texture;
+      this.helpButton.texture = this.resources.helpButton.texture;
+    });
+
+    this.startButton.on('mouseout', () => {
+      this.startButton.texture = this.resources.startButton.texture;
+    });
+
+    this.startButton.on("mousedown", () => {
+      disableTitleScreen(this.title, this.startButton, this.startSelected, 
+        this.helpButton, this.helpSelected, this.smallPlanet, this.menuBackground);
+        this.startGame();
+      });
+
+
     this.startSelected = new Sprite(resources.startSelected.texture);
     this.startSelected.x = this.startButton.x;
     this.startSelected.y = this.startButton.y;
@@ -69,6 +94,22 @@ export class Menu {
     this.helpSelected.y = this.helpButton.y;
     this.helpSelected = scaleDown(this.helpSelected);
     this.helpSelected.visible = false;
+
+    this.helpButton.interactive = true;
+    this.helpButton.hitArea = new PIXI.Rectangle(
+      0,
+      0,
+      this.helpButton.width * 2,
+      this.helpButton.height * 2
+    );
+    this.helpButton.on('mouseover', () => {
+      this.helpButton.texture = this.resources.helpSelected.texture;
+      this.startButton.texture = this.resources.startButton.texture;
+    });
+
+    this.helpButton.on('mouseout', () => {
+      this.helpButton.texture = this.resources.helpButton.texture;
+    });
 
     this.restartButton = new Sprite(resources.restartButton.texture);
     this.restartButton.x = this.startButton.x;
@@ -119,8 +160,6 @@ export class Menu {
     this.tiltTimer = 0;
     this.tiltDirection = true;
 
-    
-
     this.container = new Container();
     this.container.addChild(this.menuBackground);
     this.container.addChild(this.title);
@@ -158,27 +197,22 @@ export class Menu {
         this.tiltTimer = 0;
       }
 
-      
-
-      if (Input.isDown("a") || Input.isDown("ArrowLeft") || horizontal < -0.5) {
+      if (Input.isDown('a') || Input.isDown('ArrowLeft') || horizontal < -0.5) {
         //if(horizontal<0)??
-        this.startButton.visible = false;
-        this.startSelected.visible = true;
-
-        this.helpButton.visible = true;
-        this.helpSelected.visible = false;
+        this.startButton.texture = this.resources.startSelected.texture;
+        this.helpButton.texture = this.resources.helpButton.texture;
       }
 
-      if (Input.isDown("d") || Input.isDown("ArrowRight") || horizontal > 0.5) {
+      if (Input.isDown('d') || Input.isDown('ArrowRight') || horizontal > 0.5) {
         //if(horizontal>0)??
-        this.startButton.visible = true;
-        this.startSelected.visible = false;
-
-        this.helpButton.visible = false;
-        this.helpSelected.visible = true;
+        this.startButton.texture = this.resources.startButton.texture;
+        this.helpButton.texture = this.resources.helpSelected.texture;
       }
 
-      if ((Input.isDown("Enter") || Input.isGamepadAButtonDown()) && this.startSelected.visible == true) {
+      if (
+        (Input.isDown('Enter') || Input.isGamepadAButtonDown()) &&
+        this.startButton.texture == this.resources.startSelected.texture
+      ) {
         disableTitleScreen(
           this.title,
           this.startButton,
@@ -190,7 +224,10 @@ export class Menu {
         );
 
         this.startGame();
-      } else if ((Input.isDown("Enter") || Input.isGamepadAButtonDown()) && this.helpSelected.visible == true) {
+      } else if (
+        (Input.isDown('Enter') || Input.isGamepadAButtonDown()) &&
+        this.helpSelected.visible == true
+      ) {
         disableTitleScreen(
           this.title,
           this.startButton,
@@ -217,7 +254,11 @@ export class Menu {
         this.titleButton.visible = true;
         this.restartButton.visible = true;
 
-        if (Input.isDown("a") || Input.isDown("ArrowLeft") || horizontal < -0.5) {
+        if (
+          Input.isDown('a') ||
+          Input.isDown('ArrowLeft') ||
+          horizontal < -0.5
+        ) {
           this.restartButton.visible = false;
           this.restartSelected.visible = true;
 
@@ -225,7 +266,11 @@ export class Menu {
           this.titleSelected.visible = false;
         }
 
-        if (Input.isDown("d") || Input.isDown("ArrowRight") || horizontal > 0.5) {
+        if (
+          Input.isDown('d') ||
+          Input.isDown('ArrowRight') ||
+          horizontal > 0.5
+        ) {
           this.restartButton.visible = true;
           this.restartSelected.visible = false;
 
@@ -233,7 +278,10 @@ export class Menu {
           this.titleSelected.visible = true;
         }
 
-        if ((Input.isDown("Enter") || Input.isGamepadAButtonDown()) && this.titleSelected.visible == true) {
+        if (
+          (Input.isDown('Enter') || Input.isGamepadAButtonDown()) &&
+          this.titleSelected.visible == true
+        ) {
           disableGameOverScreen(
             this.gameOver,
             this.restartButton,
@@ -254,7 +302,10 @@ export class Menu {
           );
         }
 
-        if ((Input.isDown("Enter") || Input.isGamepadAButtonDown()) && this.restartSelected.visible == true) {
+        if (
+          (Input.isDown('Enter') || Input.isGamepadAButtonDown()) &&
+          this.restartSelected.visible == true
+        ) {
           //restart game
           disableGameOverScreen(
             this.gameOver,
@@ -270,7 +321,7 @@ export class Menu {
         }
       }
     } else if (this.howToPlay.visible) {
-      if (Input.isDown("a") || Input.isDown("ArrowLeft") || horizontal < -0.5) {
+      if (Input.isDown('a') || Input.isDown('ArrowLeft') || horizontal < -0.5) {
         this.howToPlay.visible = false;
         this.arrowLeft.visible = false;
         this.arrowRight.visible = false;
