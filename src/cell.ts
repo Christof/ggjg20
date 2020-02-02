@@ -1,7 +1,6 @@
 import { Container, LoaderResource, IPoint } from 'pixi.js';
 import { Tree } from './tree';
 import { BurningTree } from './burning_tree';
-import { Water } from './water';
 
 export class Cell {
   private hasTree = false;
@@ -23,11 +22,6 @@ export class Cell {
     this.hasTree = true;
     const tree = new Tree(this.center, angle, this.resources.tree.texture);
     this.container.addChild(tree.sprite);
-  }
-
-  quench(angle: number) {
-    const water = new Water(this.center, angle);
-    this.container.addChild(water.sprite);
   }
 
   update() {

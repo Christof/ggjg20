@@ -2,9 +2,9 @@ import { Sprite, LoaderResource, IPoint, Container } from 'pixi.js';
 import { TargetMarker } from './target_marker';
 import { Player } from './player';
 import { Input } from './input';
-import { Tree } from './tree';
 import { Cell } from './cell';
 import { range } from 'lodash';
+import { Water } from './water';
 
 const cellCount = 16;
 
@@ -12,6 +12,7 @@ export class Game {
   private planet: Sprite;
   private targetMarker: TargetMarker;
   private player: Player;
+  private water: Water;
 
   private cells: Cell[];
 
@@ -61,11 +62,30 @@ export class Game {
       this.cellForAngle(this.player.angle).plant(this.player.angle);
     }
 
-    if (Input.isDown('q')) {
-      this.cellForAngle(this.player.angle).quench(this.player.angle);
+    if (Input.isDown('q') && this.water === undefined) {
+      this.quench();
+    }
+    if (!Input.isDown('q') && this.water !== undefined) {
+      this.stopQuench();
     }
 
     this.cells.forEach(cell => cell.update());
+  }
+
+  quench() {
+    this.water = new Water(
+      this.center,
+      this.player.angle - 0.1 * this.player.getOrientation()
+    );
+    this.container.addChild(this.water.sprite);
+  }
+
+  stopQuench() {
+    if (this.water) {
+      const index = this.container.children.indexOf(this.water.sprite);
+      this.container.removeChildAt(index);
+      this.water = undefined;
+    }
   }
 }
 
