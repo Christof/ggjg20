@@ -4,12 +4,22 @@ import fireloopPath from '../assets/sound/FireLoop.mp3';
 import firestopPath from '../assets/sound/FireStop.mp3';
 import step1Path from '../assets/sound/Footstep1.mp3';
 import step2Path from '../assets/sound/Footstep2.mp3';
+import quitPath from '../assets/sound/EndOrSomething.mp3';
+import waterStartPath from "../assets/sound/WaterStarting.mp3";
+import waterLoopPath from "../assets/sound/WaterBodyLoop.mp3";
+import waterStopPath from "../assets/sound/WaterStop.mp3";
 
 let firestart = new Howl({ src: firestartPath });
 let fireloop = new Howl({ src: fireloopPath, loop: true });
 let firestop = new Howl({ src: firestopPath });
+
+let waterstart = new Howl({ src: waterStartPath });
+let waterloop = new Howl({ src: waterLoopPath, loop: true });
+let waterstop = new Howl({ src: waterStopPath });
+
 let step1 = new Howl({ src: step1Path });
 let step2 = new Howl({ src: step2Path });
+let quit = new Howl({ src: quitPath });
 
 step1.on('end', startStepLoop);
 step2.on('end', startStepLoop);
@@ -46,13 +56,31 @@ export class Fire {
 }
 
 export class WaterSound {
-  firestart_id: number = undefined;
-  fireloop_id: number = undefined;
+  waterstart_id: number = undefined;
+  waterloop_id: number = undefined;
   stopped = false;
 
-  start() {}
+  start() {
+    this.waterstart_id = waterstart.play();
+    waterstart.on(
+      'end',
+      () => {
+        if (!this.stopped) this.waterloop_id = waterloop.play();
+      },
+      this.waterstart_id
+    );
+  }
 
-  stop() {}
+  stop() {
+    waterloop.on(
+      'end',
+      () => {
+        waterloop.play();
+        waterloop.pause(this.waterloop_id);
+      },
+      this.waterloop_id
+    );
+  }
 }
 
 export function startStepLoop() {
