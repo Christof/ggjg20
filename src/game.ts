@@ -88,7 +88,7 @@ export class Game {
       this.extinguish();
     }
     if (isExtinguishing) {
-      this.cellForAngle(this.player.angle).quench(
+      this.cellForAngle(this.player.angle).extinguish(
         this.getExtinguishAngle(),
         this.frameDuration
       );
