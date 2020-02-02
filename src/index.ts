@@ -21,9 +21,9 @@ import howtoplayPath from '../assets/howtoplay.png';
 import arrowPath from '../assets/arrowleft.png';
 import smallplanetPath from '../assets/planet_xxs.png';
 import backgroundPath from '../assets/start_background.png';
-import healthLayer0Path from "../assets/health_layer_0.png";
-import healthLayer1Path from "../assets/health_layer_1.png";
-import healthLayer2Path from "../assets/health_layer_2.png";
+import healthLayer0Path from '../assets/health_layer_0.png';
+import healthLayer1Path from '../assets/health_layer_1.png';
+import healthLayer2Path from '../assets/health_layer_2.png';
 
 (window as any).fire = Fire;
 
@@ -58,9 +58,9 @@ app.loader
   .add('tree', treePath)
   .add('planet', planetPath)
   .add('title', titlePath)
-  .add("layer0", healthLayer0Path)
-  .add("layer1", healthLayer1Path)
-  .add("layer2", healthLayer2Path)
+  .add('layer0', healthLayer0Path)
+  .add('layer1', healthLayer1Path)
+  .add('layer2', healthLayer2Path)
   .add('startButton', startbuttonPath)
   .add('startSelected', startselectedPath)
   .add('helpButton', helpbuttonPath)
@@ -79,8 +79,15 @@ app.loader
     const centerY = 0.25 * app.renderer.height;
     const center = new PIXI.Point(centerX, centerY);
 
-    const game = new Game(center, resources);
+    let menu: Menu;
     let gameRunning = false;
+
+    const onGameOver = () => {
+      gameRunning = false;
+      // menu.showGameOver();
+      game = new Game(center, resources, onGameOver);
+    };
+    let game = new Game(center, resources, onGameOver);
     const startGame = () => {
       gameRunning = true;
       app.stage.addChild(game.container);
@@ -89,7 +96,7 @@ app.loader
     //const game = new Game(center, resources);
     //app.stage.addChild(game.container);
 
-    const menu = new Menu(center, resources, startGame);
+    menu = new Menu(center, resources, startGame);
     app.stage.addChild(menu.container);
 
     app.ticker.add(delta => {

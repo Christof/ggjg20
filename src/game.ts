@@ -31,7 +31,8 @@ export class Game {
 
   constructor(
     private center: IPoint,
-    private resources: Partial<Record<string, LoaderResource>>
+    private resources: Partial<Record<string, LoaderResource>>,
+    private onGameOver: () => void
   ) {
     this.planet = new Sprite(resources.planet.texture);
     this.planet.anchor.x = 0.5;
@@ -123,6 +124,8 @@ export class Game {
     console.log('delta', delta, this.health);
 
     this.bar.set(1 - this.health);
+
+    if (this.health < 0) this.onGameOver();
   }
 
   extinguish() {
