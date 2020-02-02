@@ -9,7 +9,6 @@ export class BurningTree {
 
   constructor(transform: Transform) {
     if (!BurningTree.spritesheet) {
-      console.log('path', treeJSON.meta.image);
       const baseTexture = new BaseTexture(treeJSON.meta.image, null);
       BurningTree.spritesheet = new Spritesheet(baseTexture, treeJSON);
       BurningTree.spritesheet.parse(function() {

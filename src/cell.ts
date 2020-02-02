@@ -1,6 +1,7 @@
 import { Container, LoaderResource, IPoint } from 'pixi.js';
 import { Tree } from './tree';
 import { BurningTree } from './burning_tree';
+import { TreeExtinguish } from './tree_extinguish';
 
 export class Cell {
   private burningDuration = 10000;
@@ -10,7 +11,9 @@ export class Cell {
   private isBurning = false;
   private burningStart: number;
   private burningTree: BurningTree;
+  private treeExtinguish: TreeExtinguish;
   private extinguishDuration = 0;
+  private isExtinguishing = false;
   private treeAngle: number;
 
   public container: Container;
@@ -37,15 +40,29 @@ export class Cell {
     const distanceToTree = Math.abs(angle - this.treeAngle);
     if (distanceToTree < 0.04) {
       this.extinguishDuration += frameDuration;
-      console.log(this.extinguishDuration);
+
+      if (!this.isExtinguishing) {
+        this.isExtinguishing = true;
+
+        this.container.removeChildren();
+        this.burningTree.cleanup();
+
+        this.treeExtinguish = new TreeExtinguish(
+          this.burningTree.sprite.transform
+        );
+        this.container.addChild(this.treeExtinguish.sprite);
+        this.burningTree = undefined;
+      }
     }
 
     if (this.extinguishDuration > this.requiredDurationToExtinguish) {
-      this.burningTree = undefined;
       this.isBurning = false;
       this.extinguishDuration = 0;
 
+      this.treeExtinguish.cleanup();
+      this.treeExtinguish = undefined;
       this.container.removeChildren();
+
       const tree = new Tree(
         this.center,
         this.treeAngle,
@@ -77,7 +94,10 @@ export class Cell {
       this.burningStart = undefined;
       this.hasTree = false;
       this.burningTree?.cleanup();
+      this.treeExtinguish?.cleanup();
       this.container.removeChildren();
+      this.burningTree = undefined;
+      this.treeExtinguish = undefined;
     }
   }
 }
