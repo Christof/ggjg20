@@ -73,11 +73,12 @@ export class Game {
   }
 
   quench() {
-    this.water = new Water(
-      this.center,
-      this.player.angle - 0.1 * this.player.getOrientation()
-    );
+    this.water = new Water(this.center, this.getQuenchAngle());
     this.container.addChild(this.water.sprite);
+  }
+
+  getQuenchAngle() {
+    return this.player.angle - 0.1 * this.player.getOrientation();
   }
 
   stopQuench() {
