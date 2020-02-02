@@ -82,6 +82,7 @@ export class Game {
 
   stopQuench() {
     if (this.water) {
+      this.water.cleanup();
       const index = this.container.children.indexOf(this.water.sprite);
       this.container.removeChildAt(index);
       this.water = undefined;
