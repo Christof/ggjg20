@@ -135,7 +135,7 @@ export class Game {
       .length;
     const burningTreeCount = this.cells.filter(cell => cell.isBurning).length;
 
-    const delta = (0.1 * (treeCount - burningTreeCount - 2)) / cellCount;
+    const delta = (0.2 * (treeCount - burningTreeCount - 3)) / cellCount;
     this.health = Math.min(1, Math.max(0, this.health + delta));
 
     // console.log('delta', delta, this.health);
