@@ -73,8 +73,9 @@ export class Game {
     this.targetAngle = updateTargetAngleFromJoystick(this.targetAngle);
     this.targetAngle = updateTargetAngleFromKeyboard(this.targetAngle);
 
-    // Prevent movement while quenching
-    if (Input.isDown('q')) this.targetAngle = this.player.angle;
+    const isExtinguishing = Input.isDown('q');
+    // Prevent movement while extinguishing
+    if (isExtinguishing) this.targetAngle = this.player.angle;
 
     this.player.update(this.targetAngle);
     this.targetMarker.update(this.targetAngle);
@@ -83,32 +84,32 @@ export class Game {
       this.cellForAngle(this.player.angle).plant(this.player.angle);
     }
 
-    if (Input.isDown('q') && this.water === undefined) {
-      this.quench();
+    if (isExtinguishing && this.water === undefined) {
+      this.extinguish();
     }
-    if (Input.isDown('q')) {
+    if (isExtinguishing) {
       this.cellForAngle(this.player.angle).quench(
-        this.getQuenchAngle(),
+        this.getExtinguishAngle(),
         this.frameDuration
       );
     }
-    if (!Input.isDown('q') && this.water !== undefined) {
+    if (!isExtinguishing && this.water !== undefined) {
       this.stopQuench();
     }
 
     this.cells.forEach(cell => cell.update());
   }
 
-  quench() {
+  extinguish() {
     this.water = new Water(
       this.center,
-      this.getQuenchAngle(),
+      this.getExtinguishAngle(),
       this.player.getOrientation()
     );
     this.container.addChild(this.water.sprite);
   }
 
-  getQuenchAngle() {
+  getExtinguishAngle() {
     return this.player.angle - 0.1 * this.player.getOrientation();
   }
 
