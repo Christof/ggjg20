@@ -4,11 +4,13 @@ import { BurningTree } from './burning_tree';
 
 export class Cell {
   private burningDuration = 10000;
+  private requiredQuenchDuration = 3000;
 
   private hasTree = false;
   private isBurning = false;
   private burningStart: number;
   private burningTree: BurningTree;
+  private quenchDuration = 0;
   private treeAngle: number;
 
   public container: Container;
@@ -29,20 +31,27 @@ export class Cell {
     this.container.addChild(tree.sprite);
   }
 
-  quench(angle: number) {
+  quench(angle: number, frameDuration: number) {
     if (!this.burningTree) return;
 
     const distanceToTree = Math.abs(angle - this.treeAngle);
-    console.log(distanceToTree);
-    if (distanceToTree < 0.02) {
-      if (Math.random() > 0.99) {
-        this.burningTree = undefined;
-        this.isBurning = false;
+    if (distanceToTree < 0.04) {
+      this.quenchDuration += frameDuration;
+      console.log(this.quenchDuration);
+    }
 
-        this.container.removeChildren();
-        const tree = new Tree(this.center, angle, this.resources.tree.texture);
-        this.container.addChild(tree.sprite);
-      }
+    if (this.quenchDuration > this.requiredQuenchDuration) {
+      this.burningTree = undefined;
+      this.isBurning = false;
+      this.quenchDuration = 0;
+
+      this.container.removeChildren();
+      const tree = new Tree(
+        this.center,
+        this.treeAngle,
+        this.resources.tree.texture
+      );
+      this.container.addChild(tree.sprite);
     }
   }
 

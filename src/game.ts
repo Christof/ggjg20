@@ -79,7 +79,10 @@ export class Game {
       this.quench();
     }
     if (Input.isDown('q')) {
-      this.cellForAngle(this.player.angle).quench(this.getQuenchAngle());
+      this.cellForAngle(this.player.angle).quench(
+        this.getQuenchAngle(),
+        this.frameDuration
+      );
     }
     if (!Input.isDown('q') && this.water !== undefined) {
       this.stopQuench();
