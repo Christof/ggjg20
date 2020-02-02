@@ -25,7 +25,6 @@ import healthLayer0Path from '../assets/health_layer_0.png';
 import healthLayer1Path from '../assets/health_layer_1.png';
 import healthLayer2Path from '../assets/health_layer_2.png';
 
-(window as any).fire = Fire;
 
 const newStyle = document.createElement('style');
 const style = '* {padding: 0; margin: 0}';
@@ -84,7 +83,7 @@ app.loader
 
     const onGameOver = () => {
       gameRunning = false;
-      // menu.showGameOver();
+      menu.enableGameOverScreen();
       game = new Game(center, resources, onGameOver);
     };
     let game = new Game(center, resources, onGameOver);
@@ -97,6 +96,7 @@ app.loader
     //app.stage.addChild(game.container);
 
     menu = new Menu(center, resources, startGame);
+    (window as any).menu = menu;
     app.stage.addChild(menu.container);
 
     app.ticker.add(delta => {
