@@ -1,6 +1,6 @@
 import { BaseTexture, Spritesheet, AnimatedSprite, IPoint } from 'pixi.js';
-import waterJSON from '../assets/Water2.json';
-import waterPath from '../assets/Water2.png';
+import waterJSON from '../assets/water3.json';
+import waterPath from '../assets/water3.png';
 import { WaterSound } from './audio';
 import { posFromCylinderCoord, rotationToCenter } from './math';
 
