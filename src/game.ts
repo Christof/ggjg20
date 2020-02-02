@@ -6,10 +6,12 @@ import { Cell } from './cell';
 import { range } from 'lodash';
 import { Water } from './water';
 import { Bar } from './bar';
+import { Stars } from './stars';
 
 const cellCount = 16;
 
 export class Game {
+  private stars: Stars;
   private planet: Sprite;
   private targetMarker: TargetMarker;
   private player: Player;
@@ -33,6 +35,8 @@ export class Game {
     this.planet.anchor.y = 0.5;
     this.planet.position = center;
 
+    this.stars = new Stars(this.planet.transform);
+
     this.targetMarker = new TargetMarker(center, resources.crosshair.texture);
     this.targetMarker.update(this.targetAngle);
     this.player = new Player(center);
@@ -44,6 +48,8 @@ export class Game {
 
     this.container = new Container();
     this.container.addChild(this.bar.container);
+    this.container.addChild(this.bar.layer0);
+    this.container.addChild(this.stars.sprite);
     this.container.addChild(this.planet);
     this.container.addChild(this.player.sprite);
     this.container.addChild(this.targetMarker.sprite);
