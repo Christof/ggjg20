@@ -42,7 +42,8 @@ export class Menu {
 
   constructor(
     private center: IPoint,
-    resources: Partial<Record<string, LoaderResource>>
+    resources: Partial<Record<string, LoaderResource>>,
+    private startGame: () => void
   ) {
     this.title = new Sprite(resources.title.texture);
     this.title.x = center.x;
@@ -184,7 +185,7 @@ export class Menu {
       }
 
       if (Input.isDown("Enter") && this.startSelected.visible == true) {
-        //Start game
+        
         disableTitleScreen(
             this.title,
             this.startButton,
@@ -193,14 +194,7 @@ export class Menu {
             this.helpSelected,
             this.smallPlanet
           );
-          enableGameOverScreen(
-            this.gameOver,
-            this.restartButton,
-            this.restartSelected,
-            this.titleButton,
-            this.titleSelected,
-            this.center
-          )
+          this.startGame();
 
       } else if (Input.isDown("Enter") && this.helpSelected.visible == true) {
         disableTitleScreen(
