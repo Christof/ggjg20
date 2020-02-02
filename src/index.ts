@@ -21,6 +21,9 @@ import howtoplayPath from '../assets/howtoplay.png';
 import arrowPath from '../assets/arrowleft.png';
 import smallplanetPath from '../assets/planet_xxs.png';
 import backgroundPath from '../assets/start_background.png';
+import healthLayer0Path from "../assets/health_layer_0.png";
+import healthLayer1Path from "../assets/health_layer_1.png";
+import healthLayer2Path from "../assets/health_layer_2.png";
 
 (window as any).fire = Fire;
 
@@ -55,6 +58,9 @@ app.loader
   .add('tree', treePath)
   .add('planet', planetPath)
   .add('title', titlePath)
+  .add("layer0", healthLayer0Path)
+  .add("layer1", healthLayer1Path)
+  .add("layer2", healthLayer2Path)
   .add('startButton', startbuttonPath)
   .add('startSelected', startselectedPath)
   .add('helpButton', helpbuttonPath)
