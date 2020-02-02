@@ -1,4 +1,4 @@
-import { Sprite, Texture, Container, Graphics, graphicsUtils } from 'pixi.js';
+import { Sprite, Texture, Container, Graphics } from 'pixi.js';
 
 export class Bar {
     percentage = 1;
@@ -12,10 +12,11 @@ export class Bar {
         this.container = new Container();
         this.mask = new Graphics();
         this.mask.beginFill(0xF);
-        this.mask.drawRect(0, 0, 64, 128);
+        this.mask.drawRect(0, 0, 32, 64);
         this.mask.endFill();
         this.layer0 = new Sprite(layer0);
         this.layer1 = new Sprite(layer1);
+        this.layer1.addChild(this.mask);
         this.layer1.mask = this.mask;
         this.layer2 = new Sprite(layer2);
         this.container.addChild(this.layer0, this.layer1, this.layer2);
@@ -25,6 +26,9 @@ export class Bar {
         this.percentage = percentage;
         this.mask.clear();
         this.mask.beginFill(0xF);
-        this.mask.drawRect(0, 0, 64, 128*percentage);
+        this.mask.drawRect(0, 54 - percentage * 54, 32, 64);
     }
 }
+
+//44
+//10
