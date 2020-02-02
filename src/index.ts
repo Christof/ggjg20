@@ -74,7 +74,11 @@ app.loader
     const center = new PIXI.Point(centerX, centerY);
 
     const game = new Game(center, resources);
-    const startGame = () => app.stage.addChild(game.container);
+    let gameRunning = false;
+    const startGame = () => {
+      gameRunning = true;
+      app.stage.addChild(game.container);
+    };
 
     //const game = new Game(center, resources);
     //app.stage.addChild(game.container);
@@ -83,7 +87,10 @@ app.loader
     app.stage.addChild(menu.container);
 
     app.ticker.add(delta => {
-      //game.update();
-      menu.update();
+      if (gameRunning) {
+        game.update();
+      } else {
+        menu.update();
+      }
     });
   });
