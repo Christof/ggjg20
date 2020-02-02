@@ -8,7 +8,6 @@ export class Stars {
 
   constructor(transform: Transform) {
     if (!Stars.spritesheet) {
-      console.log('path', starsJSON.meta.image);
       const baseTexture = new BaseTexture(starsPath, null);
       Stars.spritesheet = new Spritesheet(baseTexture, starsJSON);
       Stars.spritesheet.parse(function() {
