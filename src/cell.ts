@@ -6,6 +6,7 @@ export class Cell {
   private hasTree = false;
   private isBurning = false;
   private burningTree: BurningTree;
+  private treeAngle: number;
 
   public container: Container;
 
@@ -20,8 +21,25 @@ export class Cell {
     if (this.hasTree) return;
 
     this.hasTree = true;
+    this.treeAngle = angle;
     const tree = new Tree(this.center, angle, this.resources.tree.texture);
     this.container.addChild(tree.sprite);
+  }
+
+  quench(angle: number) {
+    if (!this.burningTree) return;
+
+    const distanceToTree = Math.abs(angle - this.treeAngle);
+    console.log(distanceToTree);
+    if (distanceToTree < 0.02) {
+      if (Math.random() > 0.99) {
+        this.burningTree = undefined;
+
+        this.container.removeChildren();
+        const tree = new Tree(this.center, angle, this.resources.tree.texture);
+        this.container.addChild(tree.sprite);
+      }
+    }
   }
 
   update() {
