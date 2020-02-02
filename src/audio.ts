@@ -72,14 +72,13 @@ export class WaterSound {
   }
 
   stop() {
-    waterloop.on(
-      'end',
-      () => {
-        waterloop.play();
-        waterloop.pause(this.waterloop_id);
-      },
-      this.waterloop_id
-    );
+    this.stopped = true;
+    if (this.waterstart_id) {
+      waterstart.stop(this.waterstart_id);
+    }
+    if (this.waterloop_id === undefined) return;
+    waterloop.stop(this.waterloop_id);
+    waterstop.play();
   }
 }
 
