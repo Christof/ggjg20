@@ -10,6 +10,18 @@ export const Input = {
     let gamepad = navigator.getGamepads()[this.gamepad_index];
     return [gamepad.axes[0], gamepad.axes[1]];
   },
+  isGamepadAButtonDown() {
+    if (!this.gamepad_connected) return false;
+
+    let gamepad = navigator.getGamepads()[this.gamepad_index];
+    return gamepad.buttons[0].pressed;
+  },
+  isGamepadBButtonDown() {
+    if (!this.gamepad_connected) return false;
+
+    let gamepad = navigator.getGamepads()[this.gamepad_index];
+    return gamepad.buttons[1].pressed;
+  },
   isDown(key: string) {
     if (this.current.keys[key]) {
       return true;

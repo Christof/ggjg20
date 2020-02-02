@@ -73,14 +73,15 @@ export class Game {
     this.targetAngle = updateTargetAngleFromJoystick(this.targetAngle);
     this.targetAngle = updateTargetAngleFromKeyboard(this.targetAngle);
 
-    const isExtinguishing = Input.isDown('q');
+    console.log(Input.isGamepadBButtonDown());
+    const isExtinguishing = Input.isDown('q') || Input.isGamepadBButtonDown();
     // Prevent movement while extinguishing
     if (isExtinguishing) this.targetAngle = this.player.angle;
 
     this.player.update(this.targetAngle);
     this.targetMarker.update(this.targetAngle);
 
-    if (Input.isDown('e')) {
+    if (Input.isDown('e') || Input.isGamepadAButtonDown()) {
       this.cellForAngle(this.player.angle).plant(this.player.angle);
     }
 
