@@ -5,7 +5,7 @@ import { Input } from './input';
 import { Cell } from './cell';
 import { range } from 'lodash';
 import { Water } from './water';
-import { Bar } from "./bar";
+import { Bar } from './bar';
 
 const cellCount = 16;
 
@@ -15,6 +15,8 @@ export class Game {
   private player: Player;
   private water: Water;
   private bar: Bar;
+  private lastFrameTime = Date.now();
+  private frameDuration: number;
 
   private cells: Cell[];
 
@@ -34,7 +36,11 @@ export class Game {
     this.targetMarker = new TargetMarker(center, resources.crosshair.texture);
     this.targetMarker.update(this.targetAngle);
     this.player = new Player(center);
-    this.bar = new Bar(resources.layer0.texture, resources.layer1.texture, resources.layer2.texture);
+    this.bar = new Bar(
+      resources.layer0.texture,
+      resources.layer1.texture,
+      resources.layer2.texture
+    );
 
     this.container = new Container();
     this.container.addChild(this.bar.container);
@@ -56,6 +62,9 @@ export class Game {
   }
 
   update() {
+    this.frameDuration = Date.now() - this.lastFrameTime;
+    this.lastFrameTime = Date.now();
+
     this.targetAngle = updateTargetAngleFromJoystick(this.targetAngle);
     this.targetAngle = updateTargetAngleFromKeyboard(this.targetAngle);
 
