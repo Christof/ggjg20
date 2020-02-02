@@ -141,7 +141,10 @@ export class Game {
     // console.log('delta', delta, this.health);
 
     this.bar.set(this.health);
-    if (this.health <= 0) this.onGameOver();
+    if (this.health <= 0) {
+      this.container.removeChildren();
+      this.onGameOver();
+    }
   }
 
   extinguish() {

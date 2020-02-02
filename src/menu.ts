@@ -61,6 +61,7 @@ export class Menu {
 
     this.startButton.on('mousedown', () => {
       this.disableTitleScreen();
+      this.startGame();
     });
 
     this.helpButton = new Sprite(resources.helpButton.texture);
@@ -137,7 +138,7 @@ export class Menu {
   }
   update() {
     const [horizontal, vertical] = Input.getGamepadJoystick();
-    if (this.title.visible) {
+    if (this.title.visible && !this.gameOver) {
       if (this.tiltTimer < 60) {
         if (this.tiltDirection) {
           this.title.rotation += 0.005;
@@ -169,7 +170,7 @@ export class Menu {
 
       if (
         (Input.isDown('Enter') || Input.isGamepadAButtonDown()) &&
-        this.startButton.texture == this.resources.startSelected.texture
+        this.startButton.texture == this.resources.startSelected.texture && this.startButton.visible
       ) {
         this.disableTitleScreen();
 
@@ -186,6 +187,8 @@ export class Menu {
       }
     } else if (this.gameOver) {
       this.titleButton.visible = true;
+      this.title.visible = true;
+      this.smallPlanet.visible = true;
       this.restartButton.visible = true;
 
       if (Input.isDown('a') || Input.isDown('ArrowLeft') || horizontal < -0.5) {
@@ -194,7 +197,7 @@ export class Menu {
       }
 
       if (Input.isDown('d') || Input.isDown('ArrowRight') || horizontal > 0.5) {
-        this.restartButton.texture = this.resources.restartSelected.texture;
+        this.restartButton.texture = this.resources.restartButton.texture;
         this.titleButton.texture = this.resources.titleSelected.texture;
       }
 
@@ -244,11 +247,7 @@ export class Menu {
   }
 
   public enableGameOverScreen() {
-    this.gameOver = true;
-    this.startButton.visible = false;
-    this.restartButton.visible = true;
-    this.titleButton.visible = false;
-    this.menuBackground.visible = true;
+    this.enableTitleScreen();
   }
 
   disableGameOverScreen() {
