@@ -42,8 +42,6 @@ export class Fire {
 
   stop() {
     this.stopped = true;
-    if (this.fireloop_id === undefined) return;
-
     fireloop.on(
       'end',
       () => {
