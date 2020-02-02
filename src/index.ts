@@ -76,7 +76,7 @@ app.loader
     const game = new Game(center, resources);
     const startGame = () => app.stage.addChild(game.container);
 
-
+    startGame();
     //const game = new Game(center, resources);
     //app.stage.addChild(game.container);
 
