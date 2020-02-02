@@ -47,8 +47,8 @@ export class Menu {
     this.gameOver.anchor.x = 0.5;
     this.gameOver.anchor.y = 0.5;
     this.gameOver.x = center.x;
-    this.gameOver.y = center.y * 0.1;
-    //this.gameOver = scaleDown(this.gameOver);
+    this.gameOver.y = center.y;
+    this.gameOver = scaleDown(this.gameOver);
     this.gameOver.visible = false;
 
     this.startButton = new Sprite(resources.startButton.texture);
@@ -303,22 +303,18 @@ export class Menu {
     this.smallPlanet.visible = false;
     this.menuBackground.visible = false;
   }
-  
-    public enableGameOverScreen(
 
-  ) {
-    console.log("game over kek");
+  public enableGameOverScreen() {
     this.gameOver.visible = true;
-    this.gameOver.angle = 0;
-    this.gameOver.y = this.center.y * 0.1;
-  
-    this.restartButton.visible = false;
+
+    this.startButton.visible = false;
+
+    this.restartButton.visible = true;
     this.restartSelected.visible = false;
-  
+
     this.titleButton.visible = false;
     this.titleSelected.visible = false;
     this.menuBackground.visible = true;
-    
   }
   
   disableGameOverScreen() {
@@ -333,13 +329,11 @@ export class Menu {
     this.titleSelected.visible = false;
     this.menuBackground.visible = false;
   }
-  
-
 }
 
 function scaleDown(sprite: Sprite) {
-    sprite.width /= 2;
-    sprite.height /= 2;
-  
-    return sprite;
-  }
+  sprite.width /= 2;
+  sprite.height /= 2;
+
+  return sprite;
+}
