@@ -113,11 +113,16 @@ export class Game {
       this.extinguish();
     }
     if (isExtinguishing) {
-      this.cellForAngle(this.player.angle).extinguish(
-        this.getExtinguishAngle(),
-        this.frameDuration
-      );
+      const index = this.cellIndexForAngle(this.player.angle);
+      const index2 = (index + 1) % cellCount;
+      const index3 = index - 1 >= 0 ? index - 1 : cellCount - 1;
+
+      const extinguishAngle = this.getExtinguishAngle();
+      this.cells[index].extinguish(extinguishAngle, this.frameDuration);
+      this.cells[index2].extinguish(extinguishAngle, this.frameDuration);
+      this.cells[index3].extinguish(extinguishAngle, this.frameDuration);
     }
+
     if (!isExtinguishing && this.water !== undefined) {
       this.stopExtinguishing();
     }
