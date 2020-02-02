@@ -3,7 +3,6 @@ const { settings, Application, SCALE_MODES } = PIXI;
 import planetPath from '../assets/planet.png';
 import crosshairPath from '../assets/crosshair.png';
 import treePath from '../assets/Tree_8x16.png';
-import { Fire } from './audio';
 import { Game } from './game';
 //menu stuff
 import { Menu } from './menu';
