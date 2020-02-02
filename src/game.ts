@@ -9,6 +9,7 @@ import { Bar } from './bar';
 import { Stars } from './stars';
 
 const cellCount = 16;
+const startTreeCount = 3;
 const healthUpdateInterval = 1000;
 
 export class Game {
@@ -63,6 +64,15 @@ export class Game {
     this.cells = range(cellCount).map(() => new Cell(center, resources));
     for (const cell of this.cells) {
       this.container.addChild(cell.container);
+    }
+
+    this.plantRandomStartTrees();
+  }
+
+  private plantRandomStartTrees() {
+    for (let index = 0; index < startTreeCount; index++) {
+      const angle = Math.random() * 2 * Math.PI;
+      this.cellForAngle(angle).plant(angle);
     }
   }
 
