@@ -48,7 +48,6 @@ export class Game {
 
     this.container = new Container();
     this.container.addChild(this.bar.container);
-    this.container.addChild(this.bar.layer0);
     this.container.addChild(this.stars.sprite);
     this.container.addChild(this.planet);
     this.container.addChild(this.player.sprite);
