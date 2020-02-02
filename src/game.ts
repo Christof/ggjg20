@@ -117,7 +117,7 @@ export class Game {
       );
     }
     if (!isExtinguishing && this.water !== undefined) {
-      this.stopQuench();
+      this.stopExtinguishing();
     }
 
     this.cells.forEach(cell => cell.update());
@@ -151,7 +151,7 @@ export class Game {
     return this.player.angle - 0.1 * this.player.getOrientation();
   }
 
-  stopQuench() {
+  stopExtinguishing() {
     if (this.water) {
       this.water.cleanup();
       const index = this.container.children.indexOf(this.water.sprite);
