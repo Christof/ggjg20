@@ -46,12 +46,14 @@ export class Game {
       resources.layer2.texture
     );
 
+    this.bar.container.x = center.x + 100;
+
     this.container = new Container();
-    this.container.addChild(this.bar.container);
     this.container.addChild(this.stars.sprite);
     this.container.addChild(this.planet);
     this.container.addChild(this.player.sprite);
     this.container.addChild(this.targetMarker.sprite);
+    this.container.addChild(this.bar.container);
 
     this.cells = range(cellCount).map(() => new Cell(center, resources));
     for (const cell of this.cells) {
