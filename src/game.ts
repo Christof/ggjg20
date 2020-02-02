@@ -73,7 +73,6 @@ export class Game {
     this.targetAngle = updateTargetAngleFromJoystick(this.targetAngle);
     this.targetAngle = updateTargetAngleFromKeyboard(this.targetAngle);
 
-    console.log(Input.isGamepadBButtonDown());
     const isExtinguishing = Input.isDown('q') || Input.isGamepadBButtonDown();
     // Prevent movement while extinguishing
     if (isExtinguishing) this.targetAngle = this.player.angle;
