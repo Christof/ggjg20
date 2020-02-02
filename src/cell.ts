@@ -7,8 +7,8 @@ export class Cell {
   private burningDuration = 10000;
   private requiredDurationToExtinguish = 3000;
 
-  private hasTree = false;
-  private isBurning = false;
+  public hasTree = false;
+  public isBurning = false;
   private burningStart: number;
   private burningTree: BurningTree;
   private treeExtinguish: TreeExtinguish;

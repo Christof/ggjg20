@@ -9,6 +9,7 @@ import { Bar } from './bar';
 import { Stars } from './stars';
 
 const cellCount = 16;
+const healthUpdateInterval = 1000;
 
 export class Game {
   private stars: Stars;
@@ -17,6 +18,8 @@ export class Game {
   private player: Player;
   private water: Water;
   private bar: Bar;
+  private health = 0.5;
+  private lastHealthUpdateTimestamp = 0;
   private lastFrameTime = Date.now();
   private frameDuration: number;
 
@@ -70,8 +73,14 @@ export class Game {
   }
 
   update() {
-    this.frameDuration = Date.now() - this.lastFrameTime;
-    this.lastFrameTime = Date.now();
+    const now = Date.now();
+    this.frameDuration = now - this.lastFrameTime;
+    this.lastFrameTime = now;
+
+    if (now - this.lastHealthUpdateTimestamp > healthUpdateInterval) {
+      this.lastHealthUpdateTimestamp = now;
+      this.updateHealth();
+    }
 
     this.targetAngle = updateTargetAngleFromJoystick(this.targetAngle);
     this.targetAngle = updateTargetAngleFromKeyboard(this.targetAngle);
@@ -101,6 +110,19 @@ export class Game {
     }
 
     this.cells.forEach(cell => cell.update());
+  }
+
+  updateHealth() {
+    const treeCount = this.cells.filter(cell => cell.hasTree && !cell.isBurning)
+      .length;
+    const burningTreeCount = this.cells.filter(cell => cell.isBurning).length;
+
+    const delta = (0.1 * (treeCount - burningTreeCount - 2)) / cellCount;
+    this.health = Math.min(1, Math.max(0, this.health + delta));
+
+    console.log('delta', delta, this.health);
+
+    this.bar.set(1 - this.health);
   }
 
   extinguish() {
