@@ -5,7 +5,7 @@ import { TreeExtinguish } from './tree_extinguish';
 
 export class Cell {
   private burningDuration = 10000;
-  private requiredDurationToExtinguish = 3000;
+  private requiredDurationToExtinguish = 2000;
 
   public hasTree = false;
   public isBurning = false;
