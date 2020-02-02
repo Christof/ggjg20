@@ -45,7 +45,7 @@ export class Cell {
         this.isExtinguishing = true;
 
         this.container.removeChildren();
-        this.burningTree.cleanup();
+        this.burningTree?.cleanup();
 
         this.treeExtinguish = new TreeExtinguish(
           this.burningTree.sprite.transform
@@ -59,7 +59,7 @@ export class Cell {
       this.isBurning = false;
       this.extinguishDuration = 0;
 
-      this.treeExtinguish.cleanup();
+      this.treeExtinguish?.cleanup();
       this.treeExtinguish = undefined;
       this.container.removeChildren();
 
