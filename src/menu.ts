@@ -73,9 +73,7 @@ export class Menu {
     });
 
     this.startButton.on("mousedown", () => {
-      disableTitleScreen(this.title, this.startButton, this.startSelected, 
-        this.helpButton, this.helpSelected, this.smallPlanet, this.menuBackground);
-        this.startGame();
+      this.disableTitleScreen();
       });
 
 
@@ -209,34 +207,12 @@ export class Menu {
         this.helpButton.texture = this.resources.helpSelected.texture;
       }
 
-      if (
-        (Input.isDown('Enter') || Input.isGamepadAButtonDown()) &&
-        this.startButton.texture == this.resources.startSelected.texture
-      ) {
-        disableTitleScreen(
-          this.title,
-          this.startButton,
-          this.startSelected,
-          this.helpButton,
-          this.helpSelected,
-          this.smallPlanet,
-          this.menuBackground
-        );
+      if ((Input.isDown("Enter") || Input.isGamepadAButtonDown()) && this.startSelected.visible == true) {
+        this.disableTitleScreen();
 
         this.startGame();
-      } else if (
-        (Input.isDown('Enter') || Input.isGamepadAButtonDown()) &&
-        this.helpSelected.visible == true
-      ) {
-        disableTitleScreen(
-          this.title,
-          this.startButton,
-          this.startSelected,
-          this.helpButton,
-          this.helpSelected,
-          this.smallPlanet,
-          this.menuBackground
-        );
+      } else if ((Input.isDown("Enter") || Input.isGamepadAButtonDown()) && this.helpSelected.visible == true) {
+        this.disableTitleScreen();
         this.howToPlay.visible = true;
         this.arrowLeft.visible = true;
         this.arrowRight.visible = true;
@@ -278,28 +254,9 @@ export class Menu {
           this.titleSelected.visible = true;
         }
 
-        if (
-          (Input.isDown('Enter') || Input.isGamepadAButtonDown()) &&
-          this.titleSelected.visible == true
-        ) {
-          disableGameOverScreen(
-            this.gameOver,
-            this.restartButton,
-            this.restartSelected,
-            this.titleButton,
-            this.titleSelected,
-            this.menuBackground,
-            this.center
-          );
-          enableTitleScreen(
-            this.title,
-            this.startButton,
-            this.startSelected,
-            this.helpButton,
-            this.helpSelected,
-            this.smallPlanet,
-            this.menuBackground
-          );
+        if ((Input.isDown("Enter") || Input.isGamepadAButtonDown()) && this.titleSelected.visible == true) {
+          this.disableGameOverScreen();
+          this.enableTitleScreen();
         }
 
         if (
@@ -307,15 +264,7 @@ export class Menu {
           this.restartSelected.visible == true
         ) {
           //restart game
-          disableGameOverScreen(
-            this.gameOver,
-            this.restartButton,
-            this.restartSelected,
-            this.titleButton,
-            this.titleSelected,
-            this.menuBackground,
-            this.center
-          );
+          this.disableGameOverScreen();
 
           this.startGame();
         }
@@ -326,106 +275,71 @@ export class Menu {
         this.arrowLeft.visible = false;
         this.arrowRight.visible = false;
 
-        enableTitleScreen(
-          this.title,
-          this.startButton,
-          this.startSelected,
-          this.helpButton,
-          this.helpSelected,
-          this.smallPlanet,
-          this.menuBackground
-        );
+        this.enableTitleScreen();
       }
     }
   }
-}
 
-function enableTitleScreen(
-  title: Sprite,
-  startbutton: Sprite,
-  startselected: Sprite,
-  helpbutton: Sprite,
-  helpselected: Sprite,
-  planet: Sprite,
-  menuBackground: Sprite
-) {
-  title.visible = true;
-  startbutton.visible = true;
-  startselected.visible = false;
+  enableTitleScreen() {
+    this.title.visible = true;
+    this.startButton.visible = true;
+    this.startSelected.visible = false;
+  
+    this.helpButton.visible = true;
+    this.helpSelected.visible = false;
+  
+    this.smallPlanet.visible = true;
+    this.menuBackground.visible = true;
+  }
+  
+  disableTitleScreen() {
+    this.title.visible = false;
+    this.startButton.visible = false;
+    this.startSelected.visible = false;
+  
+    this.helpButton.visible = false;
+    this.helpSelected.visible = false;
+  
+    this.smallPlanet.visible = false;
+    this.menuBackground.visible = false;
+  }
+  
+    public enableGameOverScreen(
 
-  helpbutton.visible = true;
-  helpselected.visible = false;
+  ) {
+    console.log("game over kek");
+    this.gameOver.visible = true;
+    this.gameOver.angle = 0;
+    this.gameOver.y = this.center.y * 0.1;
+  
+    this.restartButton.visible = false;
+    this.restartSelected.visible = false;
+  
+    this.titleButton.visible = false;
+    this.titleSelected.visible = false;
+    this.menuBackground.visible = true;
+    
+  }
+  
+  disableGameOverScreen() {
+    this.gameOver.visible = false;
+    this.gameOver.angle = 0;
+    this.gameOver.y = this.center.y * 0.1;
+  
+    this.restartButton.visible = false;
+    this.restartSelected.visible = false;
+  
+    this.titleButton.visible = false;
+    this.titleSelected.visible = false;
+    this.menuBackground.visible = false;
+  }
+  
 
-  planet.visible = true;
-  menuBackground.visible = true;
-}
-
-function disableTitleScreen(
-  title: Sprite,
-  startbutton: Sprite,
-  startselected: Sprite,
-  helpbutton: Sprite,
-  helpselected: Sprite,
-  planet: Sprite,
-  menuBackground: Sprite
-) {
-  title.visible = false;
-  startbutton.visible = false;
-  startselected.visible = false;
-
-  helpbutton.visible = false;
-  helpselected.visible = false;
-
-  planet.visible = false;
-  menuBackground.visible = false;
-}
-
-function enableGameOverScreen(
-  gameover: Sprite,
-  restartbutton: Sprite,
-  restartselected: Sprite,
-  titlebutton: Sprite,
-  titleselected: Sprite,
-  menuBackground: Sprite,
-  center: IPoint
-) {
-  gameover.visible = true;
-  gameover.angle = 0;
-  gameover.y = center.y * 0.1;
-
-  restartbutton.visible = false;
-  restartselected.visible = false;
-
-  titlebutton.visible = false;
-  titleselected.visible = false;
-  menuBackground.visible = true;
-}
-
-function disableGameOverScreen(
-  gameover: Sprite,
-  restartbutton: Sprite,
-  restartselected: Sprite,
-  titlebutton: Sprite,
-  titleselected: Sprite,
-  menuBackground: Sprite,
-  center: IPoint
-) {
-  gameover.visible = false;
-  gameover.angle = 0;
-  gameover.y = center.y * 0.1;
-
-  restartbutton.visible = false;
-  restartselected.visible = false;
-
-  titlebutton.visible = false;
-  titleselected.visible = false;
-
-  menuBackground.visible = false;
 }
 
 function scaleDown(sprite: Sprite) {
-  sprite.width /= 2;
-  sprite.height /= 2;
-
-  return sprite;
-}
+    sprite.width /= 2;
+    sprite.height /= 2;
+  
+    return sprite;
+  }
