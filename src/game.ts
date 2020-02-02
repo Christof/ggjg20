@@ -37,7 +37,7 @@ export class Game {
     this.bar = new Bar(resources.layer0.texture, resources.layer1.texture, resources.layer2.texture);
 
     this.container = new Container();
-    this.container.addChild(this.bar.layer0);
+    this.container.addChild(this.bar.container);
     this.container.addChild(this.planet);
     this.container.addChild(this.player.sprite);
     this.container.addChild(this.targetMarker.sprite);
