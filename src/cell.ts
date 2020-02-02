@@ -35,7 +35,7 @@ export class Cell {
   }
 
   extinguish(angle: number, frameDuration: number) {
-    if (!this.burningTree) return;
+    if (!this.isBurning) return;
 
     const distanceToTree = Math.abs(angle - this.treeAngle);
     if (distanceToTree < 0.05) {
