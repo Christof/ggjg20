@@ -1,6 +1,7 @@
 import { Container, LoaderResource, IPoint } from 'pixi.js';
 import { Tree } from './tree';
 import { BurningTree } from './burning_tree';
+import { TreeExtinguish } from './tree_extinguish';
 
 export class Cell {
   private burningDuration = 10000;
@@ -11,6 +12,7 @@ export class Cell {
   private burningStart: number;
   private burningTree: BurningTree;
   private extinguishDuration = 0;
+  private isExtinguishing = false;
   private treeAngle: number;
 
   public container: Container;
@@ -37,7 +39,17 @@ export class Cell {
     const distanceToTree = Math.abs(angle - this.treeAngle);
     if (distanceToTree < 0.04) {
       this.extinguishDuration += frameDuration;
-      console.log(this.extinguishDuration);
+
+      if (!this.isExtinguishing) {
+        this.isExtinguishing= true;
+        this.burningTree?.cleanup();
+        this.container.removeChildren();
+
+        const treeExtinguish = new TreeExtinguish(
+          this.burningTree.sprite.transform
+        );
+        this.container.addChild(treeExtinguish.sprite);
+      }
     }
 
     if (this.extinguishDuration > this.requiredDurationToExtinguish) {

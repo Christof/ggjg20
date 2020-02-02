@@ -1,0 +1,39 @@
+{"frames": {
+
+"Tree_Water_1.png":
+{
+	"frame": {"x":1,"y":1,"w":8,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":16},
+	"sourceSize": {"w":8,"h":16}
+},
+"Tree_Water_2.png":
+{
+	"frame": {"x":1,"y":19,"w":8,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":16},
+	"sourceSize": {"w":8,"h":16}
+},
+"Tree_Water_3.png":
+{
+	"frame": {"x":1,"y":37,"w":8,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":16},
+	"sourceSize": {"w":8,"h":16}
+}},
+"animations": {
+	"Tree_Water": ["Tree_Water_1.png","Tree_Water_2.png","Tree_Water_3.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "Tree_water.png",
+	"format": "RGBA8888",
+	"size": {"w":10,"h":54},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:6de6951edb7e6cef0b331f02326e1c14:dd65c10e4592063624cbaf516de9d962:538bfcaeac7ba43967baccf3400eea88$"
+}
+}

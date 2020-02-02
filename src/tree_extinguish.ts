@@ -1,22 +1,23 @@
 import { BaseTexture, Spritesheet, AnimatedSprite, Transform } from 'pixi.js';
-import treeJSON from '../assets/TreeBurn.json';
+import treeWaterJSON from '../assets/Tree_water.json';
+import treeWaterPath from '../assets/Tree_water.png';
 import { Fire } from './audio';
 
-export class BurningTree {
+export class TreeExtinguish {
   private static spritesheet: Spritesheet;
   private fireSound = new Fire();
   public sprite: AnimatedSprite;
 
   constructor(transform: Transform) {
-    if (!BurningTree.spritesheet) {
-      const baseTexture = new BaseTexture(treeJSON.meta.image, null);
-      BurningTree.spritesheet = new Spritesheet(baseTexture, treeJSON);
-      BurningTree.spritesheet.parse(function() {
+    if (!TreeExtinguish.spritesheet) {
+      const baseTexture = new BaseTexture(treeWaterPath, null);
+      TreeExtinguish.spritesheet = new Spritesheet(baseTexture, treeWaterJSON);
+      TreeExtinguish.spritesheet.parse(function() {
         // finished preparing spritesheet textures
       });
     }
     this.sprite = new AnimatedSprite(
-      BurningTree.spritesheet.animations['TreeBurn']
+      TreeExtinguish.spritesheet.animations['Tree_Water']
     );
     this.sprite.anchor.set(0.5);
     this.sprite.transform = transform;
