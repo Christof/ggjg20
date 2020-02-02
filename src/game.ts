@@ -133,9 +133,9 @@ export class Game {
     const delta = (0.1 * (treeCount - burningTreeCount - 2)) / cellCount;
     this.health = Math.min(1, Math.max(0, this.health + delta));
 
-    console.log('delta', delta, this.health);
+    // console.log('delta', delta, this.health);
 
-    this.bar.set(1 - this.health);
+    this.bar.set(this.health);
 
     if (this.health < 0) this.onGameOver();
   }
