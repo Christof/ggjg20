@@ -1,21 +1,5 @@
 import { Sprite, LoaderResource, IPoint, Container } from "pixi.js";
 import { Input } from "./input";
-/*
-import titlepath from '../assets/titlefont.png';
-import startbuttonpath from '../assets/startbutton_standard.png';
-import startselectedpath from '../assets/startbutton_selected.png';
-import helpbuttonpath from '../assets/helpbutton_standard.png';
-import helpselectedpath from '../assets/helpbutton_selected.png';
-import titlebuttonpath from '../assets/titlebutton_standard.png';
-import titleselectedpath from '../assets/titlebutton_selected.png';
-import restartbuttonpath from '../assets/restartbutton_standard.png';
-import restartselectedpath from '../assets/restartbutton_selected.png';
-import gameoverpath from '../assets/gameover.png';
-import howtoplaypath from '../assets/howtoplay.png';
-import arrowpath from '../assets/arrowleft.png';
-import planetpath from '../assets/planet_xxs.png';
-import backgroundpath from '..assets/background.png';
-*/
 
 export class Menu {
   // load the texture we need
@@ -45,6 +29,11 @@ export class Menu {
     resources: Partial<Record<string, LoaderResource>>,
     private startGame: () => void
   ) {
+    this.menuBackground = new Sprite(resources.menuBackground.texture);
+    this.menuBackground.anchor.x = 0.5;
+    this.menuBackground.anchor.y = 0.5;
+    this.menuBackground.position = center;
+
     this.title = new Sprite(resources.title.texture);
     this.title.x = center.x;
     this.title.y = center.y;
@@ -54,13 +43,15 @@ export class Menu {
     this.title.angle = -10;
 
     this.gameOver = new Sprite(resources.gameOver.texture);
-    this.gameOver.x = center.x * 0.4;
+    this.gameOver.anchor.x = 0.5;
+    this.gameOver.anchor.y = 0.5;
+    this.gameOver.x = center.x;
     this.gameOver.y = center.y * 0.1;
     //this.gameOver = scaleDown(this.gameOver);
     this.gameOver.visible = false;
 
     this.startButton = new Sprite(resources.startButton.texture);
-    this.startButton.x = center.x *0.4;
+    this.startButton.x = center.x * 0.5;
     this.startButton.y = center.y * 1.5;
     this.startButton = scaleDown(this.startButton);
     this.startSelected = new Sprite(resources.startSelected.texture);
@@ -83,7 +74,7 @@ export class Menu {
     this.restartButton.x = this.startButton.x;
     this.restartButton.y = center.y;
     this.restartButton = scaleDown(this.restartButton);
-    this.restartButton. visible = false;
+    this.restartButton.visible = false;
     this.restartSelected = new Sprite(resources.restartSelected.texture);
     this.restartSelected.x = this.restartButton.x;
     this.restartSelected.y = this.restartButton.y;
@@ -91,7 +82,7 @@ export class Menu {
     this.restartSelected.visible = false;
 
     this.titleButton = new Sprite(resources.titleButton.texture);
-    this.titleButton.x = this.helpButton.x;
+    this.titleButton.x = this.helpButton.x - 20;
     this.titleButton.y = this.restartButton.y;
     this.titleButton = scaleDown(this.titleButton);
     this.titleButton.visible = false;
@@ -108,12 +99,12 @@ export class Menu {
     this.howToPlay.visible = false;
 
     this.arrowLeft = new Sprite(resources.arrowLeft.texture);
-    this.arrowLeft.x = center.x * 0.2;
+    this.arrowLeft.x = this.startButton.x;
     this.arrowLeft.y = center.y * 1.6;
     this.arrowLeft.visible = false;
 
     this.arrowRight = new Sprite(resources.arrowLeft.texture);
-    this.arrowRight.x = center.x * 1.8;
+    this.arrowRight.x = this.helpButton.x + 30;
     this.arrowRight.y = this.arrowLeft.y + 10;
     this.arrowRight.anchor.x = 0.5;
     this.arrowRight.anchor.y = 0.5;
@@ -124,12 +115,14 @@ export class Menu {
     this.smallPlanet.x = center.x * 1.3;
     this.smallPlanet.y = center.y * 0.7;
     this.smallPlanet.anchor = this.title.anchor;
-   
 
     this.tiltTimer = 0;
     this.tiltDirection = true;
 
+    
+
     this.container = new Container();
+    this.container.addChild(this.menuBackground);
     this.container.addChild(this.title);
     this.container.addChild(this.startButton);
     this.container.addChild(this.startSelected);
@@ -146,6 +139,7 @@ export class Menu {
     this.container.addChild(this.smallPlanet);
   }
   update() {
+    const [horizontal, vertical] = Input.getGamepadJoystick();
     if (this.title.visible) {
       if (this.tiltTimer < 60) {
         if (this.tiltDirection) {
@@ -164,9 +158,9 @@ export class Menu {
         this.tiltTimer = 0;
       }
 
-      //const [horizontal, vertical] = input.getGamepadJoystick();
+      
 
-      if (Input.isDown("a") || Input.isDown("ArrowLeft")) {
+      if (Input.isDown("a") || Input.isDown("ArrowLeft") || horizontal < -0.5) {
         //if(horizontal<0)??
         this.startButton.visible = false;
         this.startSelected.visible = true;
@@ -175,7 +169,7 @@ export class Menu {
         this.helpSelected.visible = false;
       }
 
-      if (Input.isDown("d") || Input.isDown("ArrowRight")) {
+      if (Input.isDown("d") || Input.isDown("ArrowRight") || horizontal > 0.5) {
         //if(horizontal>0)??
         this.startButton.visible = true;
         this.startSelected.visible = false;
@@ -184,30 +178,32 @@ export class Menu {
         this.helpSelected.visible = true;
       }
 
-      if (Input.isDown("Enter") && this.startSelected.visible == true) {
-        
-        disableTitleScreen(
-            this.title,
-            this.startButton,
-            this.startSelected,
-            this.helpButton,
-            this.helpSelected,
-            this.smallPlanet
-          );
-          this.startGame();
-
-      } else if (Input.isDown("Enter") && this.helpSelected.visible == true) {
+      if ((Input.isDown("Enter") || Input.isGamepadAButtonDown()) && this.startSelected.visible == true) {
         disableTitleScreen(
           this.title,
           this.startButton,
           this.startSelected,
           this.helpButton,
           this.helpSelected,
-          this.smallPlanet
+          this.smallPlanet,
+          this.menuBackground
+        );
+
+        this.startGame();
+      } else if ((Input.isDown("Enter") || Input.isGamepadAButtonDown()) && this.helpSelected.visible == true) {
+        disableTitleScreen(
+          this.title,
+          this.startButton,
+          this.startSelected,
+          this.helpButton,
+          this.helpSelected,
+          this.smallPlanet,
+          this.menuBackground
         );
         this.howToPlay.visible = true;
         this.arrowLeft.visible = true;
         this.arrowRight.visible = true;
+        this.menuBackground.visible = true;
       }
     } else if (this.gameOver.visible) {
       if (this.gameOver.angle < 180) {
@@ -221,7 +217,7 @@ export class Menu {
         this.titleButton.visible = true;
         this.restartButton.visible = true;
 
-        if (Input.isDown("a") || Input.isDown("ArrowLeft")) {
+        if (Input.isDown("a") || Input.isDown("ArrowLeft") || horizontal < -0.5) {
           this.restartButton.visible = false;
           this.restartSelected.visible = true;
 
@@ -229,7 +225,7 @@ export class Menu {
           this.titleSelected.visible = false;
         }
 
-        if (Input.isDown("d") || Input.isDown("ArrowRight")) {
+        if (Input.isDown("d") || Input.isDown("ArrowRight") || horizontal > 0.5) {
           this.restartButton.visible = true;
           this.restartSelected.visible = false;
 
@@ -237,13 +233,14 @@ export class Menu {
           this.titleSelected.visible = true;
         }
 
-        if (Input.isDown("Enter") && this.titleSelected.visible == true) {
+        if ((Input.isDown("Enter") || Input.isGamepadAButtonDown()) && this.titleSelected.visible == true) {
           disableGameOverScreen(
             this.gameOver,
             this.restartButton,
             this.restartSelected,
             this.titleButton,
             this.titleSelected,
+            this.menuBackground,
             this.center
           );
           enableTitleScreen(
@@ -252,16 +249,28 @@ export class Menu {
             this.startSelected,
             this.helpButton,
             this.helpSelected,
-            this.smallPlanet
+            this.smallPlanet,
+            this.menuBackground
           );
         }
 
-        if (Input.isDown("Enter") && this.restartSelected.visible == true) {
+        if ((Input.isDown("Enter") || Input.isGamepadAButtonDown()) && this.restartSelected.visible == true) {
           //restart game
+          disableGameOverScreen(
+            this.gameOver,
+            this.restartButton,
+            this.restartSelected,
+            this.titleButton,
+            this.titleSelected,
+            this.menuBackground,
+            this.center
+          );
+
+          this.startGame();
         }
       }
     } else if (this.howToPlay.visible) {
-      if (Input.isDown("a") || Input.isDown("ArrowLeft")) {
+      if (Input.isDown("a") || Input.isDown("ArrowLeft") || horizontal < -0.5) {
         this.howToPlay.visible = false;
         this.arrowLeft.visible = false;
         this.arrowRight.visible = false;
@@ -272,7 +281,8 @@ export class Menu {
           this.startSelected,
           this.helpButton,
           this.helpSelected,
-          this.smallPlanet
+          this.smallPlanet,
+          this.menuBackground
         );
       }
     }
@@ -285,7 +295,8 @@ function enableTitleScreen(
   startselected: Sprite,
   helpbutton: Sprite,
   helpselected: Sprite,
-  planet: Sprite
+  planet: Sprite,
+  menuBackground: Sprite
 ) {
   title.visible = true;
   startbutton.visible = true;
@@ -295,6 +306,7 @@ function enableTitleScreen(
   helpselected.visible = false;
 
   planet.visible = true;
+  menuBackground.visible = true;
 }
 
 function disableTitleScreen(
@@ -303,7 +315,8 @@ function disableTitleScreen(
   startselected: Sprite,
   helpbutton: Sprite,
   helpselected: Sprite,
-  planet: Sprite
+  planet: Sprite,
+  menuBackground: Sprite
 ) {
   title.visible = false;
   startbutton.visible = false;
@@ -313,6 +326,7 @@ function disableTitleScreen(
   helpselected.visible = false;
 
   planet.visible = false;
+  menuBackground.visible = false;
 }
 
 function enableGameOverScreen(
@@ -321,17 +335,19 @@ function enableGameOverScreen(
   restartselected: Sprite,
   titlebutton: Sprite,
   titleselected: Sprite,
+  menuBackground: Sprite,
   center: IPoint
 ) {
   gameover.visible = true;
   gameover.angle = 0;
-  gameover.y = center.y;
+  gameover.y = center.y * 0.1;
 
   restartbutton.visible = false;
   restartselected.visible = false;
 
   titlebutton.visible = false;
   titleselected.visible = false;
+  menuBackground.visible = true;
 }
 
 function disableGameOverScreen(
@@ -340,24 +356,25 @@ function disableGameOverScreen(
   restartselected: Sprite,
   titlebutton: Sprite,
   titleselected: Sprite,
+  menuBackground: Sprite,
   center: IPoint
 ) {
   gameover.visible = false;
   gameover.angle = 0;
-  gameover.y = center.y;
+  gameover.y = center.y * 0.1;
 
   restartbutton.visible = false;
   restartselected.visible = false;
 
   titlebutton.visible = false;
   titleselected.visible = false;
+
+  menuBackground.visible = false;
 }
 
-function scaleDown(
-  sprite: Sprite
-){
-    sprite.width /= 2;
-    sprite.height /= 2;
+function scaleDown(sprite: Sprite) {
+  sprite.width /= 2;
+  sprite.height /= 2;
 
-    return sprite;
+  return sprite;
 }
