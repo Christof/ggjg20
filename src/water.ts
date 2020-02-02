@@ -9,7 +9,7 @@ export class Water {
   private waterSound = new WaterSound();
   public sprite: AnimatedSprite;
 
-  constructor(center: IPoint, angle: number) {
+  constructor(center: IPoint, angle: number, direction: number) {
     if (!Water.spritesheet) {
       const baseTexture = new BaseTexture(waterPath, null);
       Water.spritesheet = new Spritesheet(baseTexture, waterJSON);
@@ -20,6 +20,7 @@ export class Water {
     this.sprite = new AnimatedSprite(Water.spritesheet.animations['Water']);
     this.sprite.position = posFromCylinderCoord(center, 84, angle);
     this.sprite.rotation = rotationToCenter(angle);
+    this.sprite.scale.x = direction;
     this.sprite.anchor.set(0.5);
     this.sprite.animationSpeed = 0.1;
     this.sprite.play();
