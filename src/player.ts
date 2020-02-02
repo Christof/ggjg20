@@ -47,7 +47,9 @@ export class Player {
       this.radius,
       this.angle
     );
-    this.sprite.scale.x = (Math.sign(diff) || 1) * this.playerScale;
+
+    if (diff !== 0)
+      this.sprite.scale.x = (Math.sign(diff) || 1) * this.playerScale;
 
     this.sprite.rotation = rotationToCenter(this.angle);
 
