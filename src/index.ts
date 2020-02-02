@@ -44,7 +44,9 @@ app.loader
     const center = new PIXI.Point(centerX, centerY);
 
     const game = new Game(center, resources);
-    app.stage.addChild(game.container);
+    const startGame = () => app.stage.addChild(game.container);
+
+    startGame();
 
     app.ticker.add(delta => {
       game.update();
