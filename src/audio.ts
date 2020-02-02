@@ -45,6 +45,16 @@ export class Fire {
   }
 }
 
+export class WaterSound {
+  firestart_id: number = undefined;
+  fireloop_id: number = undefined;
+  stopped = false;
+
+  start() {}
+
+  stop() {}
+}
+
 export function startStepLoop() {
   if (Math.random() < 0.5) {
     step1.play();

@@ -63,6 +63,10 @@ export class Player {
       this.sprite.gotoAndStop(1);
     }
   }
+
+  getOrientation() {
+    return Math.sign(this.sprite.scale.x);
+  }
 }
 
 function normalizeAngle(angle: number) {
