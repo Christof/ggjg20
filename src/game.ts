@@ -68,6 +68,9 @@ export class Game {
     this.targetAngle = updateTargetAngleFromJoystick(this.targetAngle);
     this.targetAngle = updateTargetAngleFromKeyboard(this.targetAngle);
 
+    // Prevent movement while quenching
+    if (Input.isDown('q')) this.targetAngle = this.player.angle;
+
     this.player.update(this.targetAngle);
     this.targetMarker.update(this.targetAngle);
 
