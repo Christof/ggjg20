@@ -11,6 +11,7 @@ export class Cell {
   private isBurning = false;
   private burningStart: number;
   private burningTree: BurningTree;
+  private treeExtinguish: TreeExtinguish;
   private extinguishDuration = 0;
   private isExtinguishing = false;
   private treeAngle: number;
@@ -41,23 +42,27 @@ export class Cell {
       this.extinguishDuration += frameDuration;
 
       if (!this.isExtinguishing) {
-        this.isExtinguishing= true;
-        this.burningTree?.cleanup();
-        this.container.removeChildren();
+        this.isExtinguishing = true;
 
-        const treeExtinguish = new TreeExtinguish(
+        this.container.removeChildren();
+        this.burningTree.cleanup();
+
+        this.treeExtinguish = new TreeExtinguish(
           this.burningTree.sprite.transform
         );
-        this.container.addChild(treeExtinguish.sprite);
+        this.container.addChild(this.treeExtinguish.sprite);
+        this.burningTree = undefined;
       }
     }
 
     if (this.extinguishDuration > this.requiredDurationToExtinguish) {
-      this.burningTree = undefined;
       this.isBurning = false;
       this.extinguishDuration = 0;
 
+      this.treeExtinguish.cleanup();
+      this.treeExtinguish = undefined;
       this.container.removeChildren();
+
       const tree = new Tree(
         this.center,
         this.treeAngle,
@@ -89,7 +94,10 @@ export class Cell {
       this.burningStart = undefined;
       this.hasTree = false;
       this.burningTree?.cleanup();
+      this.treeExtinguish?.cleanup();
       this.container.removeChildren();
+      this.burningTree = undefined;
+      this.treeExtinguish = undefined;
     }
   }
 }

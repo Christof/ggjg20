@@ -1,11 +1,11 @@
 import { BaseTexture, Spritesheet, AnimatedSprite, Transform } from 'pixi.js';
 import treeWaterJSON from '../assets/Tree_water.json';
 import treeWaterPath from '../assets/Tree_water.png';
-import { Fire } from './audio';
+import { FireExtinguishSound } from './audio';
 
 export class TreeExtinguish {
   private static spritesheet: Spritesheet;
-  private fireSound = new Fire();
+  private fireSound = new FireExtinguishSound();
   public sprite: AnimatedSprite;
 
   constructor(transform: Transform) {
