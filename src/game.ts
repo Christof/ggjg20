@@ -76,11 +76,13 @@ export class Game {
     }
   }
 
-  private cellForAngle(angle: number) {
+  private cellIndexForAngle(angle: number) {
     const usedAngle = angle < 0 ? angle + 2 * Math.PI : angle;
-    const index = Math.floor((usedAngle / (2 * Math.PI)) * cellCount);
+    return Math.floor((usedAngle / (2 * Math.PI)) * cellCount);
+  }
 
-    return this.cells[index];
+  private cellForAngle(angle: number) {
+    return this.cells[this.cellIndexForAngle(angle)];
   }
 
   update() {
